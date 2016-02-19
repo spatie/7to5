@@ -31,6 +31,6 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
     }
 
     protected function getStubContent(string $name) : string {
-        return file_get_contents($this->getStub($name));
+        return trim(file_get_contents($this->getStub($name)));
     }
 }
