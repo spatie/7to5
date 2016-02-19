@@ -1,0 +1,38 @@
+{
+    "name": "spatie/7to5",
+    "description": "Convert PHP 7 code to PHP 5",
+    "keywords": [
+        "spatie",
+        "7to5"
+    ],
+    "homepage": "https://github.com/spatie/7to5",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Freek Van der Herten",
+            "email": "freek@spatie.be",
+            "homepage": "https://spatie.be",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php" : "^7.0",
+        "nikic/php-parser": "^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Spatie\\Php7to5\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Spatie\\Php7to5\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    }
+}
