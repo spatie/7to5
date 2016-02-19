@@ -36,6 +36,7 @@ class Converter
             $traverser->addVisitor(new ReturnTypesRemover());
             $traverser->addVisitor(new StrictTypesDeclarationRemover());
             $traverser->addVisitor(new ScalarTypeHintsRemover());
+            $traverser->addVisitor(new EmptyDeclareStatementRemover());
 
             $php5Statements = $traverser->traverse($php7Statements);
         } catch (Error $e) {

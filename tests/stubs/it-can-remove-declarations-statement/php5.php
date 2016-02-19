@@ -1,3 +1,5 @@
 <?php
 
-// Pretty comment
+class Test
+{
+}
