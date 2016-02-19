@@ -5,6 +5,12 @@ namespace Spatie\Php7to5;
 use PhpParser\Error;
 use PhpParser\NodeTraverser;
 use PhpParser\ParserFactory;
+use Spatie\Php7to5\NodeVisitors\EmptyDeclareStatementRemover;
+use Spatie\Php7to5\NodeVisitors\NullCoalesceReplacer;
+use Spatie\Php7to5\NodeVisitors\ReturnTypesRemover;
+use Spatie\Php7to5\NodeVisitors\ScalarTypeHintsRemover;
+use Spatie\Php7to5\NodeVisitors\SpaceshipOperatorReplacer;
+use Spatie\Php7to5\NodeVisitors\StrictTypesDeclarationRemover;
 
 class Converter
 {

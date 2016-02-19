@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Php7to5;
+namespace Spatie\Php7to5\NodeVisitors;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Declare_;
