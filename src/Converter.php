@@ -2,15 +2,8 @@
 
 namespace Spatie\Php7to5;
 
-use PhpParser\Error;
 use PhpParser\NodeTraverser;
 use PhpParser\ParserFactory;
-use Spatie\Php7to5\NodeVisitors\EmptyDeclareStatementRemover;
-use Spatie\Php7to5\NodeVisitors\NullCoalesceReplacer;
-use Spatie\Php7to5\NodeVisitors\ReturnTypesRemover;
-use Spatie\Php7to5\NodeVisitors\ScalarTypeHintsRemover;
-use Spatie\Php7to5\NodeVisitors\SpaceshipOperatorReplacer;
-use Spatie\Php7to5\NodeVisitors\StrictTypesDeclarationRemover;
 
 class Converter
 {
@@ -35,23 +28,27 @@ class Converter
 
         $php7code = file_get_contents($this->pathToPhp7Code);
 
-        try {
-            $php7Statements = $parser->parse($php7code);
+        $php7Statements = $parser->parse($php7code);
 
-            $traverser = new NodeTraverser();
+        $traverser = $this->getTraverser();
 
-            $traverser->addVisitor(new NullCoalesceReplacer());
-            $traverser->addVisitor(new SpaceshipOperatorReplacer());
-            $traverser->addVisitor(new ReturnTypesRemover());
-            $traverser->addVisitor(new StrictTypesDeclarationRemover());
-            $traverser->addVisitor(new ScalarTypeHintsRemover());
-            $traverser->addVisitor(new EmptyDeclareStatementRemover());
-
-            $php5Statements = $traverser->traverse($php7Statements);
-        } catch (Error $e) {
-            echo 'PARSE ERROR: ', $e->getMessage();
-        }
+        $php5Statements = $traverser->traverse($php7Statements);
 
         return (new \PhpParser\PrettyPrinter\Standard())->prettyPrintFile($php5Statements);
+    }
+
+    protected function getTraverser() : NodeTraverser
+    {
+        $traverser = new NodeTraverser();
+
+        foreach (glob(__DIR__.'/NodeVisitors/*.php') as $nodeVisitorFile) {
+            $className = pathinfo($nodeVisitorFile, PATHINFO_FILENAME);
+
+            $fullClassName = '\\Spatie\\Php7to5\\NodeVisitors\\'.$className;
+
+            $traverser->addVisitor(new $fullClassName());
+        }
+
+        return $traverser;
     }
 }
