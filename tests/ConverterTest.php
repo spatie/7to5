@@ -26,6 +26,16 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->getStubContent('it-can-remove-return-types/php5.php'), $php5code);
     }
 
+    /** @test */
+    public function it_can_remove_declarations_statement()
+    {
+        $converter = new Converter($this->getStub('it-can-remove-declarations-statement/php7.php'));
+
+        $php5code = $converter->getPhp5Code();
+
+        $this->assertSame($this->getStubContent('it-can-remove-declarations-statement/php5.php'), $php5code);
+    }
+
     protected function getStub(string $name) : string {
         return __DIR__ . '/stubs/' . $name;
     }
