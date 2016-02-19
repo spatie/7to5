@@ -1,4 +1,5 @@
 <?php
+
 class Test
 {
     function myFunction()
