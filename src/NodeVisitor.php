@@ -20,11 +20,19 @@ class NodeVisitor extends NodeVisitorAbstract
         }
 
         if ($node instanceof Param) {
-            $node->type = null;
+
+            if ($this->isScalar($node->type)) {
+                $node->type = null;
+            }
+
         }
 
         if ($node instanceof ClassMethod) {
             $node->returnType = null;
         }
+    }
+
+    public function isScalar( $string) {
+        return in_array($string, ['int', 'integer', 'string', 'float', 'bool', 'boolean']);
     }
 }
