@@ -11,7 +11,7 @@ use PhpParser\NodeVisitorAbstract;
 class EmptyDeclareStatementRemover extends NodeVisitorAbstract
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function leaveNode(Node $node)
     {
@@ -26,4 +26,3 @@ class EmptyDeclareStatementRemover extends NodeVisitorAbstract
         }
     }
 }
-

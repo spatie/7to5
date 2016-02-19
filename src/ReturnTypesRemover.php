@@ -9,7 +9,7 @@ use PhpParser\NodeVisitorAbstract;
 class ReturnTypesRemover extends NodeVisitorAbstract
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function leaveNode(Node $node)
     {
@@ -22,6 +22,7 @@ class ReturnTypesRemover extends NodeVisitorAbstract
 
     /**
      * @param $type
+     *
      * @return bool
      */
     protected function isScalar($type) : bool

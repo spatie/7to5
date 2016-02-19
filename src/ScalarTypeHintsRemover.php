@@ -9,7 +9,7 @@ use PhpParser\NodeVisitorAbstract;
 class ScalarTypeHintsRemover extends NodeVisitorAbstract
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function leaveNode(Node $node)
     {

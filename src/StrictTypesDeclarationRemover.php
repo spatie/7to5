@@ -10,7 +10,7 @@ use PhpParser\NodeVisitorAbstract;
 class StrictTypesDeclarationRemover extends NodeVisitorAbstract
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function leaveNode(Node $node)
     {
