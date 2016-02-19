@@ -35,6 +35,7 @@ class Converter
             $traverser = new NodeTraverser();
 
             $traverser->addVisitor(new NullCoalesceReplacer());
+            $traverser->addVisitor(new SpaceshipOperatorReplacer());
             $traverser->addVisitor(new ReturnTypesRemover());
             $traverser->addVisitor(new StrictTypesDeclarationRemover());
             $traverser->addVisitor(new ScalarTypeHintsRemover());
