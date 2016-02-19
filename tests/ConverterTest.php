@@ -3,6 +3,7 @@
 namespace Spatie\Php7to5\Test;
 
 use Spatie\Php7to5\Converter;
+use Spatie\Php7to5\Exceptions\InvalidParameter;
 
 class ConverterTest extends \PHPUnit_Framework_TestCase
 {
@@ -56,11 +57,21 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->getStubContent('it-can-replace-spaceship-operators/php5.php'), $php5code);
     }
 
-    protected function getStub(string $name) : string {
+    /** @test */
+    public function it_will_throw_an_exception_if_the_source_file_does_not_exist()
+    {
+        $this->setExpectedException(InvalidParameter::class);
+
+        new Converter('thisFileDoesNotExist.php');
+    }
+
+    protected function getStub(string $name) : string
+    {
         return __DIR__ . '/stubs/' . $name;
     }
 
-    protected function getStubContent(string $name) : string {
+    protected function getStubContent(string $name) : string
+    {
         return trim(file_get_contents($this->getStub($name)));
     }
 }
