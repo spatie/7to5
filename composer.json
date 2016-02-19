@@ -1,9 +1,14 @@
 {
     "name": "spatie/7to5",
-    "description": "Convert PHP 7 code to PHP 5",
+    "description": "Convert PHP 7 code to PHP 5 code",
     "keywords": [
         "spatie",
-        "7to5"
+        "7to5",
+        "convert",
+        "php7",
+        "abstract",
+        "syntax",
+        "tree"
     ],
     "homepage": "https://github.com/spatie/7to5",
     "license": "MIT",
