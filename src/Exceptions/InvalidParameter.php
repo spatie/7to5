@@ -18,6 +18,6 @@ class InvalidParameter extends Exception
 
     public static function directoryIsRequired() : self
     {
-        return new static("A directory must be specified");
+        return new static('A directory must be specified');
     }
 }

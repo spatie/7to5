@@ -2,6 +2,7 @@
 
 namespace Spatie\Php7to5\Test;
 
+use Illuminate\Filesystem\Filesystem;
 use Spatie\Php7to5\DirectoryConverter;
 
 class DirectoryConverterTest extends \PHPUnit_Framework_TestCase
@@ -12,19 +13,27 @@ class DirectoryConverterTest extends \PHPUnit_Framework_TestCase
 
         $this->initializeTempDirectory();
     }
-    
+
+    /** @test */
     public function it_can_copy_an_entire_directory()
     {
         $directoryConverter = new DirectoryConverter($this->getSourceDirectory());
 
         $directoryConverter->savePhp5FilesTo($this->getTempDirectory());
+
+        $this->assertTempFilesExists([
+            'sourceDirectory/file1.php',
+            'sourceDirectory/file2.php',
+            'sourceDirectory/file3.txt',
+            'sourceDirectory/directory1/file1.php',
+            'sourceDirectory/directory1/file2.php',
+            'sourceDirectory/directory1/file3.txt',
+        ]);
     }
 
     public function initializeTempDirectory()
     {
-        if (file_exists($this->getTempDirectory())) {
-            unlink($this->getTempDirectory());
-        }
+        (new Filesystem())->deleteDirectory($this->getTempDirectory());
 
         mkdir($this->getTempDirectory());
 
@@ -48,5 +57,12 @@ class DirectoryConverterTest extends \PHPUnit_Framework_TestCase
     public function getSourceDirectory() : string
     {
         return __DIR__ . '/stubs/directoryConverter';
+    }
+
+    protected function assertTempFilesExists(array $files)
+    {
+        foreach($files as $file) {
+            $this->assertFileExists("{$this->getTempDirectory()}/{$file}");
+        }
     }
 }

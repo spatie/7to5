@@ -51,16 +51,26 @@ class DirectoryConverter
         $items = new FilesystemIterator($sourceDirectory, FilesystemIterator::SKIP_DOTS);
 
         foreach ($items as $item) {
-
-            $target = $destinationDirectory . '/' . $item->getBasename();
+            $target = $destinationDirectory.'/'.$item->getBasename();
 
             if ($item->isDir()) {
                 $sourceDirectory = $item->getPathname();
 
-                $this->savePhp5FilesTo($sourceDirectory, $target);
+                $this->copyDirectory($sourceDirectory, $target);
             } else {
                 copy($item->getPathname(), $target);
+
+                if (strtolower(pathinfo($target, PATHINFO_EXTENSION)) === 'php') {
+                    $this->convertToPhp5($target);
+                }
             }
         }
+    }
+
+    protected function convertToPhp5(string $filePath)
+    {
+        $converter = new Converter($filePath);
+
+        $converter->saveAsPhp5($filePath);
     }
 }
