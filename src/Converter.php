@@ -13,7 +13,7 @@ class Converter
 
     public function __construct(string $pathToPhp7Code)
     {
-        if (! file_exists($pathToPhp7Code)) {
+        if (!file_exists($pathToPhp7Code)) {
             throw InvalidParameter::fileDoesNotExist($pathToPhp7Code);
         }
 
