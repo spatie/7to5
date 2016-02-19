@@ -34,6 +34,7 @@ class Converter
 
             $traverser = new NodeTraverser();
 
+            $traverser->addVisitor(new NullCoalesceReplacer());
             $traverser->addVisitor(new ReturnTypesRemover());
             $traverser->addVisitor(new StrictTypesDeclarationRemover());
             $traverser->addVisitor(new ScalarTypeHintsRemover());
@@ -41,7 +42,7 @@ class Converter
 
             $php5Statements = $traverser->traverse($php7Statements);
         } catch (Error $e) {
-            echo 'Parse Error: ', $e->getMessage();
+            echo 'PARSE ERROR: ', $e->getMessage();
         }
 
         return (new \PhpParser\PrettyPrinter\Standard())->prettyPrintFile($php5Statements);
