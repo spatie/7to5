@@ -3,7 +3,6 @@
 namespace Spatie\Php7to5;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp\Equal;
 use PhpParser\Node\Expr\BinaryOp\Smaller;
 use PhpParser\Node\Expr\BinaryOp\Spaceship;
@@ -15,7 +14,7 @@ use PhpParser\NodeVisitorAbstract;
 class SpaceshipOperatorReplacer extends NodeVisitorAbstract
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function leaveNode(Node $node)
     {
@@ -23,7 +22,7 @@ class SpaceshipOperatorReplacer extends NodeVisitorAbstract
             return;
         }
 
-        /**
+        /*
          * Replacing
          * $a <=> $b
          * with
@@ -40,6 +39,7 @@ class SpaceshipOperatorReplacer extends NodeVisitorAbstract
         $isSmaller = new Smaller($node->left, $node->right, $attributes);
 
         $else = new Ternary($isEqual, $equal, $larger, $attributes);
+
         return new Ternary($isSmaller, $smaller, $else, $attributes);
     }
 }

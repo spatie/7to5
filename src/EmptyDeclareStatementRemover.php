@@ -26,6 +26,5 @@ class EmptyDeclareStatementRemover extends NodeVisitorAbstract
         if (empty($result)) {
             return NodeTraverser::REMOVE_NODE;
         }
-
     }
 }

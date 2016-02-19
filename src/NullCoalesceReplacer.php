@@ -20,6 +20,5 @@ class NullCoalesceReplacer extends NodeVisitorAbstract
         $issetCall = new Node\Expr\FuncCall(new Node\Name('isset'), [$node->left]);
 
         return new Node\Expr\Ternary($issetCall, $node->left, $node->right);
-
     }
 }

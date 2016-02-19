@@ -18,6 +18,5 @@ class ReturnTypesRemover extends NodeVisitorAbstract
         }
 
         $node->returnType = null;
-
     }
 }
