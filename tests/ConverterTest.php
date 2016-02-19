@@ -46,6 +46,16 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->getStubContent('it-can-replace-null-coalesce-operators/php5.php'), $php5code);
     }
 
+    /** @test */
+    public function it_can_replace_spaceship_operators()
+    {
+        $converter = new Converter($this->getStub('it-can-replace-spaceship-operators/php7.php'));
+
+        $php5code = $converter->getPhp5Code();
+
+        $this->assertSame($this->getStubContent('it-can-replace-spaceship-operators/php5.php'), $php5code);
+    }
+
     protected function getStub(string $name) : string {
         return __DIR__ . '/stubs/' . $name;
     }
