@@ -33,17 +33,15 @@ class Converter
 
             $traverser = new NodeTraverser();
 
-            $traverser->addVisitor(new NodeVisitor());
+            $traverser->addVisitor(new ReturnTypesRemover());
+            $traverser->addVisitor(new StrictTypesDeclarationRemover());
+            $traverser->addVisitor(new ScalarTypeHintsRemover());
 
             $php5Statements = $traverser->traverse($php7Statements);
         } catch (Error $e) {
             echo 'Parse Error: ', $e->getMessage();
         }
 
-        $php5Code = '<?php' . PHP_EOL;
-
-        $php5Code .= (new \PhpParser\PrettyPrinter\Standard())->prettyPrint($php5Statements);
-
-        return $php5Code;
+        return (new \PhpParser\PrettyPrinter\Standard())->prettyPrintFile($php5Statements);
     }
 }
