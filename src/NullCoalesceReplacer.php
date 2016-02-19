@@ -13,10 +13,13 @@ class NullCoalesceReplacer extends NodeVisitorAbstract
      */
     public function leaveNode(Node $node)
     {
-        if ($node instanceof Coalesce) {
-            $issetCall = new Node\Expr\FuncCall(new Node\Name('isset'), [$node->left]);
-
-            return new Node\Expr\Ternary($issetCall, $node->left, $node->right);
+        if (!$node instanceof Coalesce) {
+            return;
         }
+
+        $issetCall = new Node\Expr\FuncCall(new Node\Name('isset'), [$node->left]);
+
+        return new Node\Expr\Ternary($issetCall, $node->left, $node->right);
+
     }
 }

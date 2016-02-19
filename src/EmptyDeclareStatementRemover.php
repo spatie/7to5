@@ -15,14 +15,17 @@ class EmptyDeclareStatementRemover extends NodeVisitorAbstract
      */
     public function leaveNode(Node $node)
     {
-        if ($node instanceof Declare_) {
-            $result = array_filter(array_map(function (DeclareDeclare $declare) {
-                return $declare->key !== 'strict_types';
-            }, $node->declares));
-
-            if (empty($result)) {
-                return NodeTraverser::REMOVE_NODE;
-            }
+        if (!$node instanceof Declare_) {
+            return;
         }
+
+        $result = array_filter(array_map(function (DeclareDeclare $declare) {
+            return $declare->key !== 'strict_types';
+        }, $node->declares));
+
+        if (empty($result)) {
+            return NodeTraverser::REMOVE_NODE;
+        }
+
     }
 }

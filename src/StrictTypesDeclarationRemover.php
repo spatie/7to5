@@ -14,10 +14,12 @@ class StrictTypesDeclarationRemover extends NodeVisitorAbstract
      */
     public function leaveNode(Node $node)
     {
-        if ($node instanceof DeclareDeclare) {
-            if ($node->key === 'strict_type') {
-                return NodeTraverser::REMOVE_NODE;
-            }
+        if (!$node instanceof DeclareDeclare) {
+            return;
+        }
+
+        if ($node->key === 'strict_type') {
+            return NodeTraverser::REMOVE_NODE;
         }
     }
 }
