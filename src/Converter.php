@@ -2,6 +2,7 @@
 
 namespace Spatie\Php7to5;
 
+use PhpParser\Error;
 use PhpParser\NodeTraverser;
 use PhpParser\ParserFactory;
 
