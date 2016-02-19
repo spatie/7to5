@@ -20,11 +20,7 @@ class ReturnTypesRemover extends NodeVisitorAbstract
         }
     }
 
-    /**
-     * @param string|array $type
-     * @return bool
-     */
-    private function isScalar($type)
+    protected function isScalar(string $type) : bool
     {
         return in_array($type, ['int', 'integer', 'float', 'string', 'bool', 'boolean']);
     }
