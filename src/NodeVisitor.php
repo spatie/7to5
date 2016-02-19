@@ -20,11 +20,11 @@ class NodeVisitor extends NodeVisitorAbstract
         }
 
         if ($node instanceof Param) {
-            $node->type = '';
+            $node->type = null;
         }
 
         if ($node instanceof ClassMethod) {
-            $node->returnType = '';
+            $node->returnType = null;
         }
     }
 }
