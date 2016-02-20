@@ -25,6 +25,7 @@ Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview 
 ## Installation
 
 You can install the package via composer:
+
 ``` bash
 $ composer require spatie/7to5
 ```
