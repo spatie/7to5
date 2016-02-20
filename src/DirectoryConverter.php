@@ -58,10 +58,12 @@ class DirectoryConverter
 
                 $this->copyDirectory($sourceDirectory, $target);
             } else {
-                copy($item->getPathname(), $target);
+                if ($this->isPhpFile($target) || $this->copyNonPhpFiles) {
+                    copy($item->getPathname(), $target);
 
-                if (strtolower(pathinfo($target, PATHINFO_EXTENSION)) === 'php') {
-                    $this->convertToPhp5($target);
+                    if (strtolower(pathinfo($target, PATHINFO_EXTENSION)) === 'php') {
+                        $this->convertToPhp5($target);
+                    }
                 }
             }
         }
@@ -72,5 +74,10 @@ class DirectoryConverter
         $converter = new Converter($filePath);
 
         $converter->saveAsPhp5($filePath);
+    }
+
+    protected function isPhpFile(string $filePath) : bool
+    {
+        return strtolower(pathinfo($filePath, PATHINFO_EXTENSION)) === 'php';
     }
 }
