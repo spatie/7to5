@@ -13,6 +13,7 @@ class Converter
 
     /**
      * @param string $pathToPhp7Code
+     *
      * @throws \Spatie\Php7to5\Exceptions\InvalidParameter
      */
     public function __construct($pathToPhp7Code)

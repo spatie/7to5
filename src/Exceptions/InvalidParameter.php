@@ -8,6 +8,7 @@ class InvalidParameter extends Exception
 {
     /**
      * @param string $directoryName
+     *
      * @return \Spatie\Php7to5\Exceptions\InvalidParameter
      */
     public static function directoryDoesNotExist($directoryName)
@@ -17,6 +18,7 @@ class InvalidParameter extends Exception
 
     /**
      * @param string $fileName
+     *
      * @return \Spatie\Php7to5\Exceptions\InvalidParameter
      */
     public static function fileDoesNotExist($fileName)

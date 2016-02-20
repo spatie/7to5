@@ -24,6 +24,7 @@ class ScalarTypeHintsRemover extends NodeVisitorAbstract
 
     /**
      * @param string|null $type
+     *
      * @return bool
      */
     protected function isScalar($type)

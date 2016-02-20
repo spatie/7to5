@@ -12,7 +12,9 @@ class DirectoryConverter
 
     /**
      * DirectoryConverter constructor.
+     *
      * @param string $sourceDirectory
+     *
      * @throws \Spatie\Php7to5\Exceptions\InvalidParameter
      */
     public function __construct($sourceDirectory)
@@ -46,6 +48,7 @@ class DirectoryConverter
 
     /**
      * @param string $destinationDirectory
+     *
      * @throws \Spatie\Php7to5\Exceptions\InvalidParameter
      */
     public function savePhp5FilesTo($destinationDirectory)
@@ -100,6 +103,7 @@ class DirectoryConverter
 
     /**
      * @param string $filePath
+     *
      * @return bool
      */
     protected function isPhpFile($filePath)
