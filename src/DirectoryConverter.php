@@ -10,7 +10,12 @@ class DirectoryConverter
     /** @var string */
     protected $copyNonPhpFiles = true;
 
-    public function __construct(string $sourceDirectory)
+    /**
+     * DirectoryConverter constructor.
+     * @param string $sourceDirectory
+     * @throws \Spatie\Php7to5\Exceptions\InvalidParameter
+     */
+    public function __construct($sourceDirectory)
     {
         if (!file_exists($sourceDirectory)) {
             throw InvalidParameter::directoryDoesNotExist($sourceDirectory);
@@ -19,21 +24,31 @@ class DirectoryConverter
         $this->sourceDirectory = $sourceDirectory;
     }
 
-    public function alsoCopyNonPhpFiles() : self
+    /**
+     * @return $this
+     */
+    public function alsoCopyNonPhpFiles()
     {
         $this->copyNonPhpFiles = true;
 
         return $this;
     }
 
-    public function doNotCopyNonPhpFiles() : self
+    /**
+     * @return $this
+     */
+    public function doNotCopyNonPhpFiles()
     {
         $this->copyNonPhpFiles = false;
 
         return $this;
     }
 
-    public function savePhp5FilesTo(string $destinationDirectory)
+    /**
+     * @param string $destinationDirectory
+     * @throws \Spatie\Php7to5\Exceptions\InvalidParameter
+     */
+    public function savePhp5FilesTo($destinationDirectory)
     {
         if ($destinationDirectory === '') {
             throw InvalidParameter::directoryIsRequired();
@@ -42,7 +57,11 @@ class DirectoryConverter
         $this->copyDirectory($this->sourceDirectory, $destinationDirectory);
     }
 
-    protected function copyDirectory(string $sourceDirectory, string $destinationDirectory)
+    /**
+     * @param string $sourceDirectory
+     * @param string $destinationDirectory
+     */
+    protected function copyDirectory($sourceDirectory, $destinationDirectory)
     {
         if (!is_dir($destinationDirectory)) {
             mkdir($destinationDirectory);
@@ -69,14 +88,21 @@ class DirectoryConverter
         }
     }
 
-    protected function convertToPhp5(string $filePath)
+    /**
+     * @param string $filePath
+     */
+    protected function convertToPhp5($filePath)
     {
         $converter = new Converter($filePath);
 
         $converter->saveAsPhp5($filePath);
     }
 
-    protected function isPhpFile(string $filePath) : bool
+    /**
+     * @param string $filePath
+     * @return bool
+     */
+    protected function isPhpFile($filePath)
     {
         return strtolower(pathinfo($filePath, PATHINFO_EXTENSION)) === 'php';
     }

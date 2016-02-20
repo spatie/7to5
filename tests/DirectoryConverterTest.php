@@ -66,6 +66,9 @@ class DirectoryConverterTest extends \PHPUnit_Framework_TestCase
         $this->addGitignoreTo($this->getTempDirectory());
     }
 
+    /**
+     * @param string $directory
+     */
     public function addGitignoreTo($directory)
     {
         $fileName = "{$directory}/.gitignore";
@@ -75,16 +78,25 @@ class DirectoryConverterTest extends \PHPUnit_Framework_TestCase
         file_put_contents($fileName, $fileContents);
     }
 
-    public function getTempDirectory() : string
+    /**
+     * @return string
+     */
+    public function getTempDirectory()
     {
         return __DIR__.'/stubs/temp';
     }
 
-    public function getSourceDirectory() : string
+    /**
+     * @return string
+     */
+    public function getSourceDirectory()
     {
         return __DIR__ . '/stubs/directoryConverter';
     }
 
+    /**
+     * @param array $files
+     */
     protected function assertTempFileExists(array $files)
     {
         foreach($files as $file) {
@@ -92,6 +104,9 @@ class DirectoryConverterTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @param array $files
+     */
     protected function assertTempFileNotExists(array $files)
     {
         foreach($files as $file) {
@@ -99,7 +114,10 @@ class DirectoryConverterTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    protected function assertAllPhpFilesWereConverted(string $directory)
+    /**
+     * @param string $directory
+     */
+    protected function assertAllPhpFilesWereConverted($directory)
     {
         $convertedPhpFileContents = file_get_contents(__DIR__ . '/stubs/converter/it-can-remove-declarations-statement/php5.php');
 

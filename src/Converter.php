@@ -11,7 +11,11 @@ class Converter
     /** @var string */
     protected $pathToPhp7Code;
 
-    public function __construct(string $pathToPhp7Code)
+    /**
+     * @param string $pathToPhp7Code
+     * @throws \Spatie\Php7to5\Exceptions\InvalidParameter
+     */
+    public function __construct($pathToPhp7Code)
     {
         if (!file_exists($pathToPhp7Code)) {
             throw InvalidParameter::fileDoesNotExist($pathToPhp7Code);
@@ -20,12 +24,18 @@ class Converter
         $this->pathToPhp7Code = $pathToPhp7Code;
     }
 
-    public function saveAsPhp5(string $destination)
+    /**
+     * @param string $destination
+     */
+    public function saveAsPhp5($destination)
     {
         file_put_contents($destination, $this->getPhp5Code());
     }
 
-    public function getPhp5Code() : string
+    /**
+     * @return string
+     */
+    public function getPhp5Code()
     {
         ini_set('xdebug.max_nesting_level', 3000);
 
@@ -42,7 +52,10 @@ class Converter
         return (new \PhpParser\PrettyPrinter\Standard())->prettyPrintFile($php5Statements);
     }
 
-    protected function getTraverser() : NodeTraverser
+    /**
+     * @return \PhpParser\NodeTraverser
+     */
+    protected function getTraverser()
     {
         $traverser = new NodeTraverser();
 

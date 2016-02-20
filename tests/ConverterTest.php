@@ -65,12 +65,20 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
         new Converter('thisFileDoesNotExist.php');
     }
 
-    protected function getStub(string $name) : string
+    /**
+     * @param string $name
+     * @return string
+     */
+    protected function getStub($name)
     {
         return __DIR__ . '/stubs/converter/' . $name;
     }
 
-    protected function getStubContent(string $name) : string
+    /**
+     * @param string $name
+     * @return string
+     */
+    protected function getStubContent($name)
     {
         return trim(file_get_contents($this->getStub($name)));
     }
