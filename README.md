@@ -9,7 +9,10 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/7to5.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/7to5)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/7to5.svg?style=flat-square)](https://packagist.org/packages/spatie/7to5)
 
-This package can convert PHP 7 code to PHP 5. Here's how you can convert a single file.
+This package can convert PHP 7 code to PHP 5. This can be handy when you are running PHP 7 in development, but
+PHP 5 in productions. In theory you could also convert a PHP 7 only package to PHP 5.
+
+Here's how you can convert a single file.
 
 ```php
 $converter = new Converter($pathToPhp7Code);
