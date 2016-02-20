@@ -17,7 +17,7 @@ Here's how you can convert a single file.
 ```php
 $converter = new Converter($pathToPhp7Code);
 
-$php5code = $converter->saveAsPhp5($pathToWherePhp5CodeShouldBeSaved);
+$converter->saveAsPhp5($pathToWherePhp5CodeShouldBeSaved);
 ```
 
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
@@ -36,7 +36,7 @@ You can convert a single file by running this code:
 ```php
 $converter = new Converter($pathToPhp7Code);
 
-$php5code = $converter->saveAsPhp5($pathToWherePhp5CodeShouldBeSaved);
+$converter->saveAsPhp5($pathToWherePhp5CodeShouldBeSaved);
 ```
 
 An entire directory can be converted as well:
