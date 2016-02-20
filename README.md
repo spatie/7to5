@@ -22,7 +22,7 @@ $converter->saveAsPhp5($pathToWherePhp5CodeShouldBeSaved);
 
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
-## Install
+## Installation
 
 You can install the package via composer:
 ``` bash
