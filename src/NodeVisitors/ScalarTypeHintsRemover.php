@@ -17,16 +17,16 @@ class ScalarTypeHintsRemover extends NodeVisitorAbstract
             return;
         }
 
-        if ($node->type === null) {
-            return;
-        }
-
         if ($this->isScalar($node->type)) {
             $node->type = null;
         }
     }
 
-    protected function isScalar(string $type) : bool
+    /**
+     * @param string|null $type
+     * @return bool
+     */
+    protected function isScalar($type)
     {
         return in_array($type, ['int', 'integer', 'float', 'string', 'bool', 'boolean']);
     }
