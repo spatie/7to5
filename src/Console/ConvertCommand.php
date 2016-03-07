@@ -19,7 +19,7 @@ class ConvertCommand extends Command
                 'A PHP 7 file or a directory containing PHP 7 files'
             )
             ->addArgument(
-                'destionation',
+                'destination',
                 InputArgument::REQUIRED,
                 'The file or path where the PHP 5 code should be saved'
             );
