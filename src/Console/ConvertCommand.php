@@ -73,15 +73,17 @@ class ConvertCommand extends Command
         $converter = new DirectoryConverter($input->getArgument('source'));
         $destination = $input->getArgument('destination');
         $path_parts = pathinfo($destination);
-        if($path_parts['dirname'] === $input->getArgument('source')){
-            $this->makeFormatter($output, 'error');
-            $output->writeln('<error>Destination path must outside the source directory!</error>');
-            $output->writeln('<error>Aborting.</error>');
+        if(!ends_with($path_parts['dirname'], '/')) $destination = $path_parts['dirname'].'/';
+        if($destination === $input->getArgument('source')){
+            $formatter = $this->getHelper('formatter');
+            $errorMessages = ['Error!', 'Something went wrong.', 'Destination path must be outside the source directory!', 'Aborting.'];
+            $formattedBlock = $formatter->formatBlock($errorMessages, 'error');
+            $output->writeln($formattedBlock);
             exit();
         }
 
         $this->makeFormatter($output, 'question');
-        $output->writeln('<question>Do you also want copy not php files to the destination directory? ( y|n ) </question>');
+        $output->writeln('<question>Do you also want to copy not php files to the destination directory? ( y|n ) </question>');
 
         if($this->getAnswer() === 'n'){
             $converter->doNotCopyNonPhpFiles();
@@ -94,7 +96,8 @@ class ConvertCommand extends Command
             exit();
         }
 
-        $output->writeln('<question>Destination directory with your given name already exists. Do you want to override it? ( y|n ) </question>');
+        $this->makeFormatter($output, 'warning');
+        $output->writeln('<warning>Destination directory with your given name already exists. Do you want to override it? ( y|n ) </warning>');
 
         if($this->getAnswer() !== 'y'){
             $output->writeln('<comment>Aborting.</comment>');
@@ -117,7 +120,7 @@ class ConvertCommand extends Command
     protected function makeFormatter($output, $case)
     {
         switch($case){
-            case 'error': $formatter = new OutputFormatterStyle('red');
+            case 'warning': $formatter = new OutputFormatterStyle('red');
                 break;
             case 'question': $formatter = new OutputFormatterStyle('cyan');
                 break;
