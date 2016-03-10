@@ -2,7 +2,6 @@
 
 namespace Spatie\Php7to5\Console;
 
-use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use Spatie\Php7to5\Converter;
 use Spatie\Php7to5\DirectoryConverter;
 use Spatie\Php7to5\Exceptions\InvalidParameter;
@@ -11,7 +10,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 
 class ConvertCommand extends Command
 {
