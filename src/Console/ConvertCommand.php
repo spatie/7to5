@@ -2,12 +2,15 @@
 
 namespace Spatie\Php7to5\Console;
 
+use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use Spatie\Php7to5\Converter;
 use Spatie\Php7to5\DirectoryConverter;
+use Spatie\Php7to5\Exceptions\InvalidParameter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 
 class ConvertCommand extends Command
@@ -25,6 +28,18 @@ class ConvertCommand extends Command
                 'destination',
                 InputArgument::REQUIRED,
                 'The file or path where the PHP 5 code should be saved'
+            )
+            ->addOption(
+                'copy-all',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'If set, will copy all files in a directory, not only php'
+            )
+            ->addOption(
+                'overwrite',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'If set, will overwrite existing destination file or directory'
             );
     }
 
@@ -39,96 +54,60 @@ class ConvertCommand extends Command
         $output->writeln("Start converting {$input->getArgument('source')}");
 
         if(is_file($input->getArgument('source'))){
-            $this->convertFile($input, $output);
+            $this->convertFile($input);
         }
 
         if(is_dir($input->getArgument('source'))){
-
-            $this->convertPHPFilesInDirectory($input, $output);
+            $this->convertPHPFilesInDirectory($input);
         }
-
-        // DIR
-        // only php or all files
-
         $output->writeln("<info>All done!</info>");
         $output->writeln('');
 
         return 0;
     }
 
-    protected function convertFile($input, $output)
+    protected function convertFile($input)
     {
         $converter = new Converter($input->getArgument('source'));
+        $destination = $input->getArgument('destination');
 
-        if(file_exists($input->getArgument('destination'))){
-//            $this->getOverride('file', $output, $converter->savePhp5FilesTo($input->getArgument('destination')));
+        if(file_exists($destination) && !$input->getOption('overwrite')){
+            throw InvalidParameter::directoryExist();
         }
-        else $converter->saveAsPhp5($input->getArgument('destination'));
-
-
+        $converter->saveAsPhp5($destination);
     }
 
-    protected function convertPHPFilesInDirectory($input, $output)
+    protected function convertPHPFilesInDirectory($input)
     {
         $converter = new DirectoryConverter($input->getArgument('source'));
         $destination = $input->getArgument('destination');
-        $path_parts = pathinfo($destination);
-        if(!ends_with($path_parts['dirname'], '/')) $destination = $path_parts['dirname'].'/';
-        if($destination === $input->getArgument('source')){
-            $formatter = $this->getHelper('formatter');
-            $errorMessages = ['Error!', 'Something went wrong.', 'Destination path must be outside the source directory!', 'Aborting.'];
-            $formattedBlock = $formatter->formatBlock($errorMessages, 'error');
-            $output->writeln($formattedBlock);
-            exit();
-        }
+        $source = $input->getArgument('source');
+        $this->isDestinationDifferentThanSource($source, $destination);
 
-        $this->makeFormatter($output, 'question');
-        $output->writeln('<question>Do you also want to copy not php files to the destination directory? ( y|n ) </question>');
-
-        if($this->getAnswer() === 'n'){
+        if(!$input->getOption('copy-all')){
             $converter->doNotCopyNonPhpFiles();
         }
 
-        if(!file_exists($input->getArgument('destination'))){
+        if(file_exists($destination) && !$input->getOption('overwrite')){
 
-            $converter->savePhp5FilesTo($destination);
-            $output->writeln("<info>All done!</info>");
-            exit();
+            throw InvalidParameter::directoryExist();
         }
 
-        $this->makeFormatter($output, 'warning');
-        $output->writeln('<warning>Destination directory with your given name already exists. Do you want to override it? ( y|n ) </warning>');
-
-        if($this->getAnswer() !== 'y'){
-            $output->writeln('<comment>Aborting.</comment>');
-            exit();
-
-        }
-        $output->writeln('<info>Overriding.</info>');
         $converter->savePhp5FilesTo($destination);
     }
 
-
-    protected function getAnswer()
+    protected function isDestinationDifferentThanSource($source, $destination)
     {
-        readline();
-        $info = readline_info();
-        return $info['line_buffer'];
-
-    }
-
-    protected function makeFormatter($output, $case)
-    {
-        switch($case){
-            case 'warning': $formatter = new OutputFormatterStyle('red');
-                break;
-            case 'question': $formatter = new OutputFormatterStyle('cyan');
-                break;
-
+        $path_parts = pathinfo($destination);
+        if(!ends_with($path_parts['dirname'], DIRECTORY_SEPARATOR)){
+            $destination = $path_parts['dirname'].DIRECTORY_SEPARATOR;
         }
-
-        return $output->getFormatter()->setStyle($case, $formatter);
-
+        if(!ends_with($source, DIRECTORY_SEPARATOR)){
+            $source = $source.DIRECTORY_SEPARATOR;
+        }
+        if($destination === $source){
+            throw InvalidParameter::wrongDestinationDirectory();
+        }
     }
 
 }
