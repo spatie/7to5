@@ -30,13 +30,13 @@ class ConvertCommand extends Command
             ->addOption(
                 'copy-all',
                 null,
-                InputOption::VALUE_OPTIONAL,
+                InputOption::VALUE_NONE,
                 'If set, will copy all files in a directory, not only php'
             )
             ->addOption(
                 'overwrite',
                 null,
-                InputOption::VALUE_REQUIRED,
+                InputOption::VALUE_NONE,
                 'If set, will overwrite existing destination file or directory'
             );
     }

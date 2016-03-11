@@ -2,7 +2,6 @@
 
 namespace Spatie\Php7to5\Test;
 
-use Spatie\Php7to5\Console\ConvertCommand;
 use Spatie\Php7to5\Converter;
 use Spatie\Php7to5\Exceptions\InvalidParameter;
 
