@@ -33,4 +33,14 @@ class InvalidParameter extends Exception
     {
         return new static('A directory must be specified');
     }
+
+    public static function wrongDestinationDirectory()
+    {
+        return new static("A destination directory can't be inside of a source directory!");
+    }
+
+    public static function directoryExist()
+    {
+        return new static("A directory with a given name already exists. if you want to overwrite it, you must specify that as an option.");
+    }
 }
