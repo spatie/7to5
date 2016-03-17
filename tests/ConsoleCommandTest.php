@@ -72,9 +72,8 @@ class ConsoleCommandTest extends \PHPUnit_Framework_TestCase
     public function it_throws_an_exception_if_a_file_exist_and_option_overwrite_is_not_given()
     {
         $command = $this->getCommand($this->inputFile, $this->outputFile, null);
-        $process = $this->runCommand($command);
 
-        $this->assertTrue(str_contains($process->getErrorOutput(), '[Spatie\Php7to5\Exceptions\InvalidParameter]'));
+        $this->assertThrowsException($command);
 
     }
 
@@ -82,9 +81,8 @@ class ConsoleCommandTest extends \PHPUnit_Framework_TestCase
     public function it_throws_an_exception_if_a_directory_exist_and_option_overwrite_is_not_given()
     {
         $command = $this->getCommand($this->sourceDirectory, $this->destinationDirectory, null);
-        $process = $this->runCommand($command);
 
-        $this->assertTrue(str_contains($process->getErrorOutput(), '[Spatie\Php7to5\Exceptions\InvalidParameter]'));
+        $this->assertThrowsException($command);
 
     }
 
@@ -94,9 +92,27 @@ class ConsoleCommandTest extends \PHPUnit_Framework_TestCase
         $sourceDirectory = $this->sourceDirectory;
         $destinationDirectory = "{$sourceDirectory}/php5";
         $command = $this->getCommand($sourceDirectory, $destinationDirectory, null);
-        $process = $this->runCommand($command);
 
-        $this->assertTrue(str_contains($process->getErrorOutput(), '[Spatie\Php7to5\Exceptions\InvalidParameter]'));
+        $this->assertThrowsExeption($command);
+
+    }
+    /** @test */
+    public function it_throws_an_exception_if_source_directory_does_not_exist()
+    {
+        $sourceDirectory = $this->getStubsDirectory(). '/directoryConverter/sourceDir';
+        $command = $this->getCommand($sourceDirectory, $this->destinationDirectory, '--overwrite');
+
+        $this->assertThrowsException($command);
+
+    }
+
+    /** @test */
+    public function it_throws_an_exception_if_source_file_does_not_exist()
+    {
+        $sourceFile = $this->getStubsDirectory(). '/converter/it-can-remove-scalar-type-hints/php.php';
+        $command = $this->getCommand($sourceFile, $this->destinationDirectory, '--overwrite');
+
+        $this->assertThrowsException($command);
 
     }
 
@@ -141,6 +157,24 @@ class ConsoleCommandTest extends \PHPUnit_Framework_TestCase
     protected function getStubsDirectory()
     {
         return __DIR__.'/stubs';
+    }
+
+    /**
+     * @param $command
+     */
+    protected function assertThrowsExeption($command)
+    {
+        $this->assertThrowsException($command);
+    }
+
+    /**
+     * @param $command
+     */
+    protected function assertThrowsException($command)
+    {
+        $process = $this->runCommand($command);
+
+        $this->assertTrue(str_contains($process->getErrorOutput(), '[Spatie\Php7to5\Exceptions\InvalidParameter]'));
     }
 
 }
