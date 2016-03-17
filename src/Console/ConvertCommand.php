@@ -46,20 +46,28 @@ class ConvertCommand extends Command
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
      * @return int
+     * @throws \Spatie\Php7to5\Exceptions\InvalidParameter
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln("Start converting {$input->getArgument('source')}");
 
-        if(is_file($input->getArgument('source'))){
-            $this->convertFile($input);
+        $source = $input->getArgument('source');
+
+        if(!file_exists($source)){
+            throw InvalidParameter::sourceDoesNotExist($source);
         }
 
-        if(is_dir($input->getArgument('source'))){
+        if(is_file($source)){
+
+            $this->convertFile($input);
+
+        }
+        if(is_dir($source)){
+
             $this->convertPHPFilesInDirectory($input);
         }
         $output->writeln("<info>All done!</info>");
-        $output->writeln('');
 
         return 0;
     }

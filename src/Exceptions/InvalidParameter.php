@@ -6,6 +6,11 @@ use Exception;
 
 class InvalidParameter extends Exception
 {
+    public static function sourceDoesNotExist($sourceName)
+    {
+        return new static("Source file or directory `{$sourceName}` does not exist");
+    }
+
     /**
      * @param string $directoryName
      *
