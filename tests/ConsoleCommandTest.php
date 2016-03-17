@@ -100,6 +100,20 @@ class ConsoleCommandTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    protected function assertTempFileExists(array $files)
+    {
+        collect($files)->each(function($file){
+            $this->assertFileExists($file);
+        });
+    }
+
+    /**
+     * @param $inputFile
+     * @param $outputFile
+     * @param $options
+     *
+     * @return string
+     */
     protected function getCommand($inputFile, $outputFile, $options)
     {
         return "./php7to5 convert {$inputFile} {$outputFile} {$options}";
@@ -111,13 +125,6 @@ class ConsoleCommandTest extends \PHPUnit_Framework_TestCase
         $process->run();
 
         return $process;
-    }
-
-    protected function assertTempFileExists(array $files)
-    {
-        collect($files)->each(function($file){
-            $this->assertFileExists($file);
-        });
     }
 
     /**
