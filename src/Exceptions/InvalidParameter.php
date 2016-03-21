@@ -41,6 +41,6 @@ class InvalidParameter extends Exception
 
     public static function directoryExist()
     {
-        return new static("A directory with a given name already exists. if you want to overwrite it, you must specify that as an option.");
+        return new static('A directory with a given name already exists. if you want to overwrite it, you must specify that as an option.');
     }
 }

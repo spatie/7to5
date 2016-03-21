@@ -51,14 +51,14 @@ class ConvertCommand extends Command
     {
         $output->writeln("Start converting {$input->getArgument('source')}");
 
-        if(is_file($input->getArgument('source'))){
+        if (is_file($input->getArgument('source'))) {
             $this->convertFile($input);
         }
 
-        if(is_dir($input->getArgument('source'))){
+        if (is_dir($input->getArgument('source'))) {
             $this->convertPHPFilesInDirectory($input);
         }
-        $output->writeln("<info>All done!</info>");
+        $output->writeln('<info>All done!</info>');
         $output->writeln('');
 
         return 0;
@@ -69,7 +69,7 @@ class ConvertCommand extends Command
         $converter = new Converter($input->getArgument('source'));
         $destination = $input->getArgument('destination');
 
-        if(file_exists($destination) && !$input->getOption('overwrite')){
+        if (file_exists($destination) && !$input->getOption('overwrite')) {
             throw InvalidParameter::directoryExist();
         }
         $converter->saveAsPhp5($destination);
@@ -82,12 +82,11 @@ class ConvertCommand extends Command
         $source = $input->getArgument('source');
         $this->isDestinationDifferentThanSource($source, $destination);
 
-        if(!$input->getOption('copy-all')){
+        if (!$input->getOption('copy-all')) {
             $converter->doNotCopyNonPhpFiles();
         }
 
-        if(file_exists($destination) && !$input->getOption('overwrite')){
-
+        if (file_exists($destination) && !$input->getOption('overwrite')) {
             throw InvalidParameter::directoryExist();
         }
 
@@ -97,15 +96,14 @@ class ConvertCommand extends Command
     protected function isDestinationDifferentThanSource($source, $destination)
     {
         $path_parts = pathinfo($destination);
-        if(!ends_with($path_parts['dirname'], DIRECTORY_SEPARATOR)){
+        if (!ends_with($path_parts['dirname'], DIRECTORY_SEPARATOR)) {
             $destination = $path_parts['dirname'].DIRECTORY_SEPARATOR;
         }
-        if(!ends_with($source, DIRECTORY_SEPARATOR)){
+        if (!ends_with($source, DIRECTORY_SEPARATOR)) {
             $source = $source.DIRECTORY_SEPARATOR;
         }
-        if($destination === $source){
+        if ($destination === $source) {
             throw InvalidParameter::wrongDestinationDirectory();
         }
     }
-
 }
