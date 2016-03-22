@@ -3,10 +3,10 @@
 namespace Spatie\Php7to5\Test;
 
 use Symfony\Component\Process\Process;
+use Illuminate\Filesystem\Filesystem;
+
 /**
- * Class ConsoleCommandTest
- *
- * @package \Spatie\Php7to5\Test
+ * Class ConsoleCommandTest.
  */
 class ConsoleCommandTest extends \PHPUnit_Framework_TestCase
 {
@@ -15,30 +15,39 @@ class ConsoleCommandTest extends \PHPUnit_Framework_TestCase
     protected $sourceDirectory;
     protected $destinationDirectory;
 
+    /**
+     *
+     */
     protected function setUp()
     {
         parent::setUp();
-        $this->inputFile = $this->getStubsDirectory(). '/converter/it-can-remove-scalar-type-hints/php7.php';
+        $this->cleanDestinationDirectory();
+        $this->inputFile = $this->getStubsDirectory().'/converter/it-can-remove-scalar-type-hints/php7.php';
         $this->outputFile = $this->getConsoleCommand().'/php5.php';
-        $this->sourceDirectory = $this->getStubsDirectory(). '/directoryConverter/sourceDirectory';
-        $this->destinationDirectory = $this->getConsoleCommand() . '/destinationDirectory';
+        $this->sourceDirectory = $this->getStubsDirectory().'/directoryConverter/sourceDirectory';
+        $this->destinationDirectory = $this->getConsoleCommand().'/destinationDirectory';
     }
 
     /** @test */
     public function it_can_convert_php7file_to_php5file_to_a_wanted_directory()
     {
-        $command = $this->getCommand($this->inputFile, $this->outputFile,'--overwrite');
+        $command = $this->getCommand($this->inputFile, $this->outputFile, '--overwrite');
         $this->runCommand($command);
 
         $this->assertFileExists($this->outputFile);
     }
 
     /** @test */
-    public function it_can_convert_php_files_from_a_given_directory()
+    public function it_can_convert_all_php_files_from_a_given_directory()
     {
         $destinationDirectory = $this->destinationDirectory;
         $command = $this->getCommand($this->sourceDirectory, $destinationDirectory, '--overwrite');
         $this->runCommand($command);
+
+        $this->assertTempFileNotExists([
+            $destinationDirectory.'/file3.txt',
+            $destinationDirectory.'/directory1/file3.txt',
+        ]);
 
         $this->assertTempFileExists([
             $destinationDirectory.'/file1.php',
@@ -67,23 +76,21 @@ class ConsoleCommandTest extends \PHPUnit_Framework_TestCase
         ]);
     }
 
-
     /** @test */
-    public function it_throws_an_exception_if_a_file_exist_and_option_overwrite_is_not_given()
+    public function it_throws_an_exception_if_a_file_exist_and_overwriting_is_not_allowed()
     {
         $command = $this->getCommand($this->inputFile, $this->outputFile, null);
 
-        $this->assertThrowsException($command);
-
+        $this->assertThrowsException($command, '[Spatie\Php7to5\Exceptions\InvalidParameter]');
     }
 
     /** @test */
-    public function it_throws_an_exception_if_a_directory_exist_and_option_overwrite_is_not_given()
+    public function it_throws_an_exception_if_a_directory_exist_and_overwriting_is_not_allowed()
     {
-        $command = $this->getCommand($this->sourceDirectory, $this->destinationDirectory, null);
+        $destinationDirectory = $this->getConsoleCommand().'/directoryExist';
+        $command = $this->getCommand($this->sourceDirectory, $destinationDirectory, null);
 
-        $this->assertThrowsException($command);
-
+        $this->assertThrowsException($command, '[Spatie\Php7to5\Exceptions\InvalidParameter]');
     }
 
     /** @test */
@@ -93,32 +100,44 @@ class ConsoleCommandTest extends \PHPUnit_Framework_TestCase
         $destinationDirectory = "{$sourceDirectory}/php5";
         $command = $this->getCommand($sourceDirectory, $destinationDirectory, null);
 
-        $this->assertThrowsExeption($command);
-
+        $this->assertThrowsException($command, '[Spatie\Php7to5\Exceptions\InvalidParameter]');
     }
     /** @test */
     public function it_throws_an_exception_if_source_directory_does_not_exist()
     {
-        $sourceDirectory = $this->getStubsDirectory(). '/directoryConverter/sourceDir';
+        $sourceDirectory = $this->getStubsDirectory().'/directoryConverter/sourceDir';
         $command = $this->getCommand($sourceDirectory, $this->destinationDirectory, '--overwrite');
 
-        $this->assertThrowsException($command);
+        $this->assertThrowsException($command, '[Spatie\Php7to5\Exceptions\InvalidParameter]');
+    }
 
+    /** @test */
+    public function it_throws_an_exception_if_destination_is_same_as_source_and_overwriting_is_not_allowed()
+    {
+        $command = $this->getCommand($this->destinationDirectory, $this->destinationDirectory);
+
+        $this->assertThrowsException($command, '[Spatie\Php7to5\Exceptions\InvalidParameter]');
     }
 
     /** @test */
     public function it_throws_an_exception_if_source_file_does_not_exist()
     {
-        $sourceFile = $this->getStubsDirectory(). '/converter/it-can-remove-scalar-type-hints/php.php';
+        $sourceFile = $this->getStubsDirectory().'/converter/it-can-remove-scalar-type-hints/php.php';
         $command = $this->getCommand($sourceFile, $this->destinationDirectory, '--overwrite');
 
-        $this->assertThrowsException($command);
+        $this->assertThrowsException($command, '[Spatie\Php7to5\Exceptions\InvalidParameter]');
+    }
 
+    protected function assertTempFileNotExists(array $files)
+    {
+        collect($files)->each(function ($file) {
+            $this->assertFileNotExists($file);
+        });
     }
 
     protected function assertTempFileExists(array $files)
     {
-        collect($files)->each(function($file){
+        collect($files)->each(function ($file) {
             $this->assertFileExists($file);
         });
     }
@@ -130,12 +149,17 @@ class ConsoleCommandTest extends \PHPUnit_Framework_TestCase
      *
      * @return string
      */
-    protected function getCommand($inputFile, $outputFile, $options)
+    protected function getCommand(string $inputFile, string $outputFile, string $options = null) : string
     {
         return "./php7to5 convert {$inputFile} {$outputFile} {$options}";
     }
 
-    protected function runCommand($command)
+    /**
+     * @param $command
+     *
+     * @return \Symfony\Component\Process\Process
+     */
+    protected function runCommand(string $command) : Process
     {
         $process = new Process($command);
         $process->run();
@@ -161,20 +185,20 @@ class ConsoleCommandTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param $command
+     * @param $exception
      */
-    protected function assertThrowsExeption($command)
-    {
-        $this->assertThrowsException($command);
-    }
-
-    /**
-     * @param $command
-     */
-    protected function assertThrowsException($command)
+    protected function assertThrowsException(string $command, string $exception)
     {
         $process = $this->runCommand($command);
 
-        $this->assertTrue(str_contains($process->getErrorOutput(), '[Spatie\Php7to5\Exceptions\InvalidParameter]'));
+        $this->assertTrue(str_contains($process->getErrorOutput(), $exception));
     }
 
+    private function cleanDestinationDirectory()
+    {
+        $destinationDirectory = $this->getConsoleCommand().'/destinationDirectory';
+        $filesystem = new Filesystem();
+
+        $filesystem->deleteDirectory($destinationDirectory);
+    }
 }

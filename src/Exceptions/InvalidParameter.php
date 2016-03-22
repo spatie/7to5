@@ -44,8 +44,13 @@ class InvalidParameter extends Exception
         return new static("A destination directory can't be inside of a source directory!");
     }
 
-    public static function directoryExist()
+    public static function destinationDirectoryIsSource()
     {
-        return new static("A directory with a given name already exists. if you want to overwrite it, you must specify that as an option.");
+        return new static('A destination directory is a source directory. If you want to overwrite it, you must specify that as an option.');
+    }
+
+    public static function destinationExist()
+    {
+        return new static('A destination directory or file with a given name already exists. If you want to overwrite it, you must specify that as an option.');
     }
 }

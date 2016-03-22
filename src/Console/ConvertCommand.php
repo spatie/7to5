@@ -46,6 +46,7 @@ class ConvertCommand extends Command
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
      * @return int
+     *
      * @throws \Spatie\Php7to5\Exceptions\InvalidParameter
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -54,66 +55,87 @@ class ConvertCommand extends Command
 
         $source = $input->getArgument('source');
 
-        if(!file_exists($source)){
+        if (!file_exists($source)) {
             throw InvalidParameter::sourceDoesNotExist($source);
         }
 
-        if(is_file($source)){
-
+        if (is_file($source)) {
             $this->convertFile($input);
-
         }
-        if(is_dir($source)){
-
+        if (is_dir($source)) {
             $this->convertPHPFilesInDirectory($input);
         }
-        $output->writeln("<info>All done!</info>");
+        $output->writeln('<info>All done!</info>');
 
         return 0;
     }
 
-    protected function convertFile($input)
+    protected function convertFile(InputInterface $input)
     {
         $converter = new Converter($input->getArgument('source'));
         $destination = $input->getArgument('destination');
 
-        if(file_exists($destination) && !$input->getOption('overwrite')){
-            throw InvalidParameter::directoryExist();
+        if (file_exists($destination) && !$input->getOption('overwrite')) {
+            throw InvalidParameter::destinationExist();
         }
         $converter->saveAsPhp5($destination);
     }
 
-    protected function convertPHPFilesInDirectory($input)
+    protected function convertPHPFilesInDirectory(InputInterface $input)
     {
         $converter = new DirectoryConverter($input->getArgument('source'));
         $destination = $input->getArgument('destination');
         $source = $input->getArgument('source');
+        $this->isDestinationASourceDirectory($source, $destination);
         $this->isDestinationDifferentThanSource($source, $destination);
 
-        if(!$input->getOption('copy-all')){
+        if (!$input->getOption('copy-all')) {
             $converter->doNotCopyNonPhpFiles();
         }
 
-        if(file_exists($destination) && !$input->getOption('overwrite')){
-
-            throw InvalidParameter::directoryExist();
+        if (file_exists($destination) && !$input->getOption('overwrite')) {
+            throw InvalidParameter::destinationExist();
         }
 
         $converter->savePhp5FilesTo($destination);
     }
 
-    protected function isDestinationDifferentThanSource($source, $destination)
+    protected function isDestinationASourceDirectory(string $source, string $destination)
+    {
+        $this->isEqual($source, $destination);
+    }
+
+    protected function isDestinationDifferentThanSource(string $source, string $destination)
     {
         $path_parts = pathinfo($destination);
-        if(!ends_with($path_parts['dirname'], DIRECTORY_SEPARATOR)){
+        if (!ends_with($path_parts['dirname'], DIRECTORY_SEPARATOR)) {
             $destination = $path_parts['dirname'].DIRECTORY_SEPARATOR;
         }
-        if(!ends_with($source, DIRECTORY_SEPARATOR)){
+        if (!ends_with($source, DIRECTORY_SEPARATOR)) {
             $source = $source.DIRECTORY_SEPARATOR;
         }
-        if($destination === $source){
+        if ($destination === $source) {
             throw InvalidParameter::wrongDestinationDirectory();
         }
     }
 
+    /**
+     * @param string $source
+     * @param string $destination
+     *
+     * @throws \Spatie\Php7to5\Exceptions\InvalidParameter
+     */
+    protected function isEqual(string $source, string $destination)
+    {
+        if (!ends_with($destination, DIRECTORY_SEPARATOR)) {
+            $destination = $destination.DIRECTORY_SEPARATOR;
+        }
+        if (!ends_with($source, DIRECTORY_SEPARATOR)) {
+            $source = $source.DIRECTORY_SEPARATOR;
+        }
+
+        if ($destination === $source) {
+            throw InvalidParameter::destinationDirectoryIsSource();
+        }
+    }
 }
