@@ -108,15 +108,7 @@ class ConvertCommand extends Command
     protected function isDestinationDifferentThanSource(string $source, string $destination)
     {
         $path_parts = pathinfo($destination);
-        if (!ends_with($path_parts['dirname'], DIRECTORY_SEPARATOR)) {
-            $destination = $path_parts['dirname'].DIRECTORY_SEPARATOR;
-        }
-        if (!ends_with($source, DIRECTORY_SEPARATOR)) {
-            $source = $source.DIRECTORY_SEPARATOR;
-        }
-        if ($destination === $source) {
-            throw InvalidParameter::wrongDestinationDirectory();
-        }
+        $this->isEqual($source, $path_parts['dirname']);
     }
 
     /**
