@@ -9,7 +9,7 @@ class DirectoryConverter
 {
     /** @var string */
     protected $copyNonPhpFiles = true;
-    protected $output;
+    protected $logger;
 
     /**
      * DirectoryConverter constructor.
@@ -29,12 +29,12 @@ class DirectoryConverter
 
     public function setLogger($output)
     {
-        $this->output = $output;
+        $this->logger = $output;
     }
 
     public function log($sourceItem, $target)
     {
-        $this->output->writeln("<comment>Converting source item {$sourceItem} to {$target} </comment>");
+        $this->logger->writeln("<comment>Converting source item {$sourceItem} to {$target} </comment>");
     }
 
     /**
