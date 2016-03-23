@@ -88,7 +88,6 @@ class DirectoryConverter
         $items = new FilesystemIterator($sourceDirectory, FilesystemIterator::SKIP_DOTS);
 
         foreach ($items as $item) {
-
             $target = $destinationDirectory.'/'.$item->getBasename();
 
             if ($item->isDir()) {
