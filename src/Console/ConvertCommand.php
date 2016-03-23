@@ -51,8 +51,8 @@ class ConvertCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln("Start converting {$input->getArgument('source')}");
-        
+        $output->writeln("<info>Start converting {$input->getArgument('source')}</info>");
+
         $source = $input->getArgument('source');
 
         if (!file_exists($source)) {
@@ -139,7 +139,7 @@ class ConvertCommand extends Command
         if (!ends_with($source, DIRECTORY_SEPARATOR)) {
             $source = $source.DIRECTORY_SEPARATOR;
         }
-        
+
         if ($destination === $source) {
             throw InvalidParameter::destinationDirectoryIsSource();
         }

@@ -4,6 +4,7 @@ namespace Spatie\Php7to5;
 
 use FilesystemIterator;
 use Spatie\Php7to5\Exceptions\InvalidParameter;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class DirectoryConverter
 {
@@ -27,7 +28,7 @@ class DirectoryConverter
         $this->sourceDirectory = $sourceDirectory;
     }
 
-    public function setLogger($output)
+    public function setLogger(OutputInterface $output)
     {
         $this->logger = $output;
     }
@@ -38,7 +39,7 @@ class DirectoryConverter
             return;
         }
 
-        $this->logger->writeln("<comment>Converting source item {$sourceItem} to {$target} </comment>");
+        $this->logger->writeln("<comment>Converting {$sourceItem} to {$target}...</comment>");
     }
 
     /**
