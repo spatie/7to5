@@ -2,12 +2,12 @@
 
 class Test
 {
-    function myFunction() : string
+    public function myFunction() : string
     {
         return 5;
     }
 
-    function anotherFunction() : MyClass
+    public function anotherFunction() : MyClass
     {
         return 5;
     }

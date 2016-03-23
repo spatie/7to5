@@ -91,7 +91,7 @@ class DirectoryConverterTest extends \PHPUnit_Framework_TestCase
      */
     public function getSourceDirectory()
     {
-        return __DIR__ . '/stubs/directoryConverter';
+        return __DIR__.'/stubs/directoryConverter';
     }
 
     /**
@@ -99,7 +99,7 @@ class DirectoryConverterTest extends \PHPUnit_Framework_TestCase
      */
     protected function assertTempFileExists(array $files)
     {
-        foreach($files as $file) {
+        foreach ($files as $file) {
             $this->assertFileExists("{$this->getTempDirectory()}/{$file}");
         }
     }
@@ -109,7 +109,7 @@ class DirectoryConverterTest extends \PHPUnit_Framework_TestCase
      */
     protected function assertTempFileNotExists(array $files)
     {
-        foreach($files as $file) {
+        foreach ($files as $file) {
             $this->assertFileNotExists("{$this->getTempDirectory()}/{$file}");
         }
     }
@@ -119,11 +119,11 @@ class DirectoryConverterTest extends \PHPUnit_Framework_TestCase
      */
     protected function assertAllPhpFilesWereConverted($directory)
     {
-        $convertedPhpFileContents = file_get_contents(__DIR__ . '/stubs/converter/it-can-remove-declarations-statement/php5.php');
+        $convertedPhpFileContents = file_get_contents(__DIR__.'/stubs/converter/it-can-remove-declarations-statement/php5.php');
 
         $allFiles = (new Filesystem())->allFiles($directory);
 
-        foreach($allFiles as $file) {
+        foreach ($allFiles as $file) {
             if ($file->getExtension() == 'php') {
                 $this->assertSame(trim($convertedPhpFileContents), file_get_contents($file->getRealPath()));
             }

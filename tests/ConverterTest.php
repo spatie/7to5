@@ -67,15 +67,17 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param string $name
+     *
      * @return string
      */
     protected function getStub($name)
     {
-        return __DIR__ . '/stubs/converter/' . $name;
+        return __DIR__.'/stubs/converter/'.$name;
     }
 
     /**
      * @param string $name
+     *
      * @return string
      */
     protected function getStubContent($name)
