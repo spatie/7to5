@@ -81,7 +81,7 @@ $ ./php7to convert {$sourceDirectory} {$destinationDirectory} --copy-all --overw
 
 If you want to convert only php files in a directory and overwrite a existing destination directory:
 ``` bash
-$ ./php7to convert {$source} {$destination} --overwrite
+$ ./php7to convert {$sourceDirectory} {$destinationDirectory} --overwrite
 ```
 
 ## Changelog
