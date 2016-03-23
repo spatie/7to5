@@ -60,6 +60,30 @@ $converter
    ->savePhp5FilesTo($destinationDirectory);
 ```
 
+You can convert files and directories using a command line command.
+If you want to convert only one file and overwrite an existing destination file if it exists:
+
+```bash
+$ ./php7to convert {$source} {$destination} --overwrite
+```
+
+If you want to convert only one file and you are sure that a file with the same name doesn't exists,
+or you want to be sure that you don't overwrite it if it exists:
+
+```bash
+$ ./php7to convert {$sourceFile} {$destinationFile}
+```
+ 
+If you want to convert all files (not only php files) in a directory and overwrite a existing destination directory:
+```bash
+$ ./php7to convert {$sourceDirectory} {$destinationDirectory} --copy-all --overwrite
+```
+
+If you want to convert only php files in a directory and overwrite a existing destination directory:
+``` bash
+$ ./php7to convert {$source} {$destination} --overwrite
+```
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
