@@ -2,11 +2,11 @@
 
 class Test
 {
-    function myFunction()
+    public function myFunction()
     {
         return 5;
     }
-    function anotherFunction()
+    public function anotherFunction()
     {
         return 5;
     }
