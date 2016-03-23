@@ -34,6 +34,10 @@ class DirectoryConverter
 
     public function log($sourceItem, $target)
     {
+        if (is_null($this->logger)) {
+            return;
+        }
+
         $this->logger->writeln("<comment>Converting source item {$sourceItem} to {$target} </comment>");
     }
 
