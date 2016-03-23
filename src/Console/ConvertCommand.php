@@ -102,12 +102,24 @@ class ConvertCommand extends Command
         $converter->savePhp5FilesTo($destination);
     }
 
-    protected function isDestinationASourceDirectory(string $source, string $destination)
+    /**
+     * @param string $source
+     * @param string $destination
+     *
+     * @throws \Spatie\Php7to5\Exceptions\InvalidParameter
+     */
+    protected function isDestinationASourceDirectory($source, $destination)
     {
         $this->isEqual($source, $destination);
     }
 
-    protected function isDestinationDifferentThanSource(string $source, string $destination)
+    /**
+     * @param string $source
+     * @param string $destination
+     *
+     * @throws \Spatie\Php7to5\Exceptions\InvalidParameter
+     */
+    protected function isDestinationDifferentThanSource($source, $destination)
     {
         $path_parts = pathinfo($destination);
         $this->isEqual($source, $path_parts['dirname']);
@@ -119,7 +131,7 @@ class ConvertCommand extends Command
      *
      * @throws \Spatie\Php7to5\Exceptions\InvalidParameter
      */
-    protected function isEqual(string $source, string $destination)
+    protected function isEqual($source, $destination)
     {
         if (!ends_with($destination, DIRECTORY_SEPARATOR)) {
             $destination = $destination.DIRECTORY_SEPARATOR;
