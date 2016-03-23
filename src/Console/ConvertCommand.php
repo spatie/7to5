@@ -63,7 +63,7 @@ class ConvertCommand extends Command
             $this->convertFile($input);
         }
         if (is_dir($source)) {
-            $this->convertPHPFilesInDirectory($input);
+            $this->convertPHPFilesInDirectory($input, $output);
         }
         $output->writeln('<info>All done!</info>');
 
@@ -81,11 +81,12 @@ class ConvertCommand extends Command
         $converter->saveAsPhp5($destination);
     }
 
-    protected function convertPHPFilesInDirectory(InputInterface $input)
+    protected function convertPHPFilesInDirectory(InputInterface $input, OutputInterface $output)
     {
-        $converter = new DirectoryConverter($input->getArgument('source'));
-        $destination = $input->getArgument('destination');
         $source = $input->getArgument('source');
+        $destination = $input->getArgument('destination');
+        $converter = new DirectoryConverter($source);
+
         $this->isDestinationASourceDirectory($source, $destination);
         $this->isDestinationDifferentThanSource($source, $destination);
 
@@ -97,6 +98,7 @@ class ConvertCommand extends Command
             throw InvalidParameter::destinationExist();
         }
 
+        $converter->setLogger($output);
         $converter->savePhp5FilesTo($destination);
     }
 
