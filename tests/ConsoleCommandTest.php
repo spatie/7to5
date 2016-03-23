@@ -128,14 +128,20 @@ class ConsoleCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertThrowsException($command, '[Spatie\Php7to5\Exceptions\InvalidParameter]');
     }
 
-    protected function assertTempFileNotExists(array $files)
+    /**
+     * @param $files
+     */
+    protected function assertTempFileNotExists($files)
     {
         collect($files)->each(function ($file) {
             $this->assertFileNotExists($file);
         });
     }
 
-    protected function assertTempFileExists(array $files)
+    /**
+     * @param $files
+     */
+    protected function assertTempFileExists($files)
     {
         collect($files)->each(function ($file) {
             $this->assertFileExists($file);
@@ -149,7 +155,7 @@ class ConsoleCommandTest extends \PHPUnit_Framework_TestCase
      *
      * @return string
      */
-    protected function getCommand(string $inputFile, string $outputFile, string $options = null) : string
+    protected function getCommand($inputFile, $outputFile, $options = null)
     {
         return "./php7to5 convert {$inputFile} {$outputFile} {$options}";
     }
@@ -159,7 +165,7 @@ class ConsoleCommandTest extends \PHPUnit_Framework_TestCase
      *
      * @return \Symfony\Component\Process\Process
      */
-    protected function runCommand(string $command) : Process
+    protected function runCommand($command)
     {
         $process = new Process($command);
         $process->run();
@@ -187,7 +193,7 @@ class ConsoleCommandTest extends \PHPUnit_Framework_TestCase
      * @param $command
      * @param $exception
      */
-    protected function assertThrowsException(string $command, string $exception)
+    protected function assertThrowsException($command, $exception)
     {
         $process = $this->runCommand($command);
 

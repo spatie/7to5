@@ -9,6 +9,7 @@ class DirectoryConverter
 {
     /** @var string */
     protected $copyNonPhpFiles = true;
+    protected $logger;
 
     /**
      * DirectoryConverter constructor.
@@ -24,6 +25,20 @@ class DirectoryConverter
         }
 
         $this->sourceDirectory = $sourceDirectory;
+    }
+
+    public function setLogger($output)
+    {
+        $this->logger = $output;
+    }
+
+    public function log($sourceItem, $target)
+    {
+        if (is_null($this->logger)) {
+            return;
+        }
+
+        $this->logger->writeln("<comment>Converting source item {$sourceItem} to {$target} </comment>");
     }
 
     /**
@@ -82,6 +97,8 @@ class DirectoryConverter
             } else {
                 if ($this->isPhpFile($target) || $this->copyNonPhpFiles) {
                     copy($item->getPathname(), $target);
+
+                    $this->log($item->getBasename(), $target);
 
                     if (strtolower(pathinfo($target, PATHINFO_EXTENSION)) === 'php') {
                         $this->convertToPhp5($target);
