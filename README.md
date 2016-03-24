@@ -27,7 +27,7 @@ Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview 
 You can install the package via composer:
 
 ``` bash
-$ composer require spatie/7to5
+$ composer global require spatie/7to5
 ```
 
 ## Usage
@@ -64,24 +64,24 @@ You can convert files and directories using a command line command.
 If you want to convert only one file and overwrite an existing destination file if it exists:
 
 ```bash
-$ ./php7to convert {$sourceFile} {$destinationFile} --overwrite
+$ php7to convert {$sourceFile} {$destinationFile} --overwrite
 ```
 
 If you want to convert only one file and you are sure that a file with the same name doesn't exists,
 or you want to be sure that you don't overwrite it if it exists:
 
 ```bash
-$ ./php7to convert {$sourceFile} {$destinationFile}
+$ php7to convert {$sourceFile} {$destinationFile}
 ```
  
 If you want to convert all files (not only php files) in a directory and overwrite a existing destination directory:
 ```bash
-$ ./php7to convert {$sourceDirectory} {$destinationDirectory} --copy-all --overwrite
+$ php7to convert {$sourceDirectory} {$destinationDirectory} --copy-all --overwrite
 ```
 
 If you want to convert only php files in a directory and overwrite a existing destination directory:
 ``` bash
-$ ./php7to convert {$sourceDirectory} {$destinationDirectory} --overwrite
+$ php7to convert {$sourceDirectory} {$destinationDirectory} --overwrite
 ```
 
 ## Changelog

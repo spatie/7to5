@@ -37,8 +37,9 @@ class DirectoryConverter
         if (is_null($this->logger)) {
             return;
         }
+        $targetRealPath = realpath($target);
 
-        $this->logger->writeln("<comment>Converting source item {$sourceItem} to {$target} </comment>");
+        $this->logger->writeln("<comment>Converting source item {$sourceItem} to {$targetRealPath} </comment>");
     }
 
     /**
