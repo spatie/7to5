@@ -64,7 +64,7 @@ You can convert files and directories using a command line command.
 If you want to convert only one file and overwrite an existing destination file if it exists:
 
 ```bash
-$ ./php7to convert {$source} {$destination} --overwrite
+$ ./php7to convert {$sourceFile} {$destinationFile} --overwrite
 ```
 
 If you want to convert only one file and you are sure that a file with the same name doesn't exists,
