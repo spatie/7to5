@@ -22,13 +22,13 @@ Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview 
 
 ## Installation
 
-If you plan on use [the console command]('#using-the-console-command') we recommend installing the package globally:
+If you plan on use [the console command](#using-the-console-command) we recommend installing the package globally:
 
 ``` bash
 $ composer global require spatie/7to5
 ```
 
-If you want to [integrate the package in your own code]('#programmatically-convert-files') require the package like usual:
+If you want to [integrate the package in your own code](#programmatically-convert-files) require the package like usual:
 
 ``` bash
 $ composer require spatie/7to5
