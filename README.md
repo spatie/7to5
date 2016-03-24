@@ -34,7 +34,7 @@ If you want to [integrate the package in your own code]('#programatically') requ
 $ composer require spatie/7to5
 ```
 
-## <a name="console">Using the console command</a>
+## <a id="console">Using the console command</a>
 
 This package provides a console command `php7to5` to convert files and directories.
 
@@ -56,7 +56,7 @@ By default the command will only copy over `php`-files. Want to copy over all fi
 $ php7to5 convert {$directoryWithPHP7Code} {$destinationWithPHP5Code} --copy-all
 ```
 
-## <a name="programatically">Programmatically convert files</a> 
+## <a id="programatically">Programmatically convert files</a> 
 
 You can convert a single file by running this code:
 
