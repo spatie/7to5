@@ -10,27 +10,53 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/7to5.svg?style=flat-square)](https://packagist.org/packages/spatie/7to5)
 
 This package can convert PHP 7 code to PHP 5. This can be handy when you are running PHP 7 in development, but
-PHP 5 in productions. In theory you could also convert a PHP 7 only package to PHP 5.
+PHP 5 in production.
 
-Here's how you can convert a single file.
+You can convert an entire directory with PHP 7 code with a the console command:
 
-```php
-$converter = new Converter($pathToPhp7Code);
-
-$converter->saveAsPhp5($pathToWherePhp5CodeShouldBeSaved);
+```bash
+$ php7to5 convert {$directoryWithPHP7Code} {$destinationWithPHP5Code}
 ```
 
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
 ## Installation
 
-You can install the package via composer:
+If you plan on use [the console command]('#console') we recommend installing the package globally:
+
+``` bash
+$ composer global require spatie/7to5
+```
+
+If you want to [integrate the package in your own code]('#programatically') require the package like usual:
 
 ``` bash
 $ composer require spatie/7to5
 ```
 
-## Usage
+## <a name="console">Using the console command</a>
+
+This package provides a console command `php7to5` to convert files and directories.
+
+This is how a entire directory can be converted:
+
+```bash
+$ php7to5 convert {$directoryWithPHP7Code} {$destinationWithPHP5Code}
+```
+
+Want to convert a single file? That's cool too! You can use the same command.
+
+```bash
+$ php7to5 convert {$sourceFileWithPHP7Code} {$destinationFileWithPHP5Code}
+```
+
+By default the command will only copy over `php`-files. Want to copy over all files? Use the `copy-all` option:
+ 
+```bash
+$ php7to5 convert {$directoryWithPHP7Code} {$destinationWithPHP5Code} --copy-all
+```
+
+## <a name="programatically">Programmatically convert files</a> 
 
 You can convert a single file by running this code:
 
