@@ -47,5 +47,8 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit"
-    }
+    },
+    "bin": [
+        "php7to5"
+    ]
 }
