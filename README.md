@@ -22,19 +22,19 @@ Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview 
 
 ## Installation
 
-If you plan on use [the console command]('#console') we recommend installing the package globally:
+If you plan on use [the console command]('#using-the-console-command') we recommend installing the package globally:
 
 ``` bash
 $ composer global require spatie/7to5
 ```
 
-If you want to [integrate the package in your own code]('#programatically') require the package like usual:
+If you want to [integrate the package in your own code]('#programmatically-convert-files') require the package like usual:
 
 ``` bash
 $ composer require spatie/7to5
 ```
 
-## <a id="console">Using the console command</a>
+## Using the console command
 
 This package provides a console command `php7to5` to convert files and directories.
 
@@ -56,7 +56,7 @@ By default the command will only copy over `php`-files. Want to copy over all fi
 $ php7to5 convert {$directoryWithPHP7Code} {$destinationWithPHP5Code} --copy-all
 ```
 
-## <a id="programatically">Programmatically convert files</a> 
+## Programmatically convert files
 
 You can convert a single file by running this code:
 
