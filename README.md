@@ -42,6 +42,7 @@ Thhis package converts PHP 7 code to equivalent PHP 5 code by:
 - replacing the spaceship operator by an equivalent PHP 5 code
 - replacing null coalesce statements by equivalent PHP 5 code
 - replacing group use declarations by equivalent PHP 5 code
+- replacing defined arrays by equivalent PHP 5 code
 - converting anonymous classes to regular classes
 
 Because there are a lot of things that cannot be detected and/or converted properly we do not guarantee that the converted code will work. We higly recommend running your automated tests against the converted code to determine if it works.
