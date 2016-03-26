@@ -7,6 +7,7 @@ use PhpParser\Node\Stmt\Declare_;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\NodeVisitorAbstract;
+use Spatie\Php7to5\Converter;
 use Spatie\Php7to5\Exceptions\InvalidPhpCode;
 
 class AnonymousClassReplacer extends NodeVisitorAbstract
@@ -56,6 +57,8 @@ class AnonymousClassReplacer extends NodeVisitorAbstract
         }
 
         $anonymousClassStatements = $this->anonymousClassNodes;
+
+        $anonymousClassStatements = $this->convertToPhp5Statements($anonymousClassStatements);
 
         $hookIndex = $this->getAnonymousClassHookIndex($nodes);
 
@@ -107,5 +110,19 @@ class AnonymousClassReplacer extends NodeVisitorAbstract
         $postStatements = array_slice($nodes, $hookIndex);
 
         return array_merge($preStatements, $anonymousClassStatements, $postStatements);
+    }
+
+    /**
+     * @param array $php7statements
+     *
+     * @return \PhpParser\Node[]
+     */
+    public function convertToPhp5Statements(array $php7statements)
+    {
+        $converter = Converter::getTraverser($php7statements);
+
+        $php5Statements = $converter->traverse($php7statements);
+
+        return $php5Statements;
     }
 }

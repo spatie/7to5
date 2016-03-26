@@ -3,16 +3,16 @@
 use Import;
 class AnonymousClass0
 {
-    public function method()
+    public function method($parameter = '')
     {
-        return true;
+        return isset($parameter) ? $parameter : 'no parameter set';
     }
 }
 class AnonymousClass1
 {
-    public function anotherMethod()
+    public function anotherMethod($integer)
     {
-        return false;
+        return $integer;
     }
 }
 class Test

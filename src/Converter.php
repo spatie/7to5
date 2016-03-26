@@ -56,7 +56,7 @@ class Converter
     /**
      * @return \PhpParser\NodeTraverser
      */
-    protected function getTraverser()
+    public static function getTraverser()
     {
         $traverser = new NodeTraverser();
 
