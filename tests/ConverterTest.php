@@ -58,6 +58,16 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_can_replace_anonymous_class()
+    {
+        $converter = new Converter($this->getStub('it_can_replace_anonymous_classes/php7.php'));
+
+        $php5code = $converter->getPhp5Code();
+
+        $this->assertSame($this->getStubContent('it_can_replace_anonymous_classes/php5.php'), $php5code);
+    }
+
+    /** @test */
     public function it_will_throw_an_exception_if_the_source_file_does_not_exist()
     {
         $this->setExpectedException(InvalidParameter::class);
