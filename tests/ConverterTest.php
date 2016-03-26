@@ -60,11 +60,11 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_can_replace_anonymous_class()
     {
-        $converter = new Converter($this->getStub('it_can_replace_anonymous_classes/php7.php'));
+        $converter = new Converter($this->getStub('it-can-replace-anonymous-classes/php7.php'));
 
         $php5code = $converter->getPhp5Code();
 
-        $this->assertSame($this->getStubContent('it_can_replace_anonymous_classes/php5.php'), $php5code);
+        $this->assertSame($this->getStubContent('it-can-replace-anonymous-classes/php5.php'), $php5code);
     }
 
     /** @test */
