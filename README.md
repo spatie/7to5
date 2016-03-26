@@ -18,6 +18,17 @@ You can convert an entire directory with PHP 7 code with a the console command:
 $ php7to5 convert {$directoryWithPHP7Code} {$destinationWithPHP5Code}
 ```
 
+Currently this package converts PHP 7 code to equivalent PHP 5 code by:
+- removing scalar type hints
+- removing return type hints
+- removing the strict type declaration
+- replacing the spaceship operator by an equivalent PHP 5 code
+- replacing null coalesce statements by equivalent PHP 5 code
+- converting anonymous classes to regular classes
+
+To make sure the converted code works we higly recommend running your automated tests against the converted code.
+
+
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
 ## Installation
@@ -33,7 +44,6 @@ If you want to [integrate the package in your own code](#programmatically-conver
 ``` bash
 $ composer require spatie/7to5
 ```
-
 ## Using the console command
 
 This package provides a console command `php7to5` to convert files and directories.
