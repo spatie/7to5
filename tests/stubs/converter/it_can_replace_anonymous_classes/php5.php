@@ -8,11 +8,19 @@ class AnonymousClass0
         return true;
     }
 }
+class AnonymousClass1
+{
+    public function anotherMethod()
+    {
+        return false;
+    }
+}
 class Test
 {
     public function test()
     {
         $class = new AnonymousClass0();
         $class->method();
+        $anotherClass = new AnonymousClass1();
     }
 }
