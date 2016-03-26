@@ -68,6 +68,16 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_can_replace_grouped_use_declarations()
+    {
+        $converter = new Converter($this->getStub('it-can-replace-group-use-declarations/php7.php'));
+
+        $php5code = $converter->getPhp5Code();
+
+        $this->assertSame($this->getStubContent('it-can-replace-group-use-declarations/php5.php'), $php5code);
+    }
+
+    /** @test */
     public function it_will_throw_an_exception_if_the_source_file_does_not_exist()
     {
         $this->setExpectedException(InvalidParameter::class);
