@@ -6,7 +6,7 @@ class Test
 {
     public function test()
     {
-        $class = new class('test') {
+        $class = new class() {
             
             public function method() {
                 return true;
