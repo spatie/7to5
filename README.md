@@ -44,8 +44,6 @@ class Test
 to this equivalent PHP 5 code:
 
 ```php 
-<?php
-
 class AnonymousClass0
 {
     public function method($parameter = '')
