@@ -12,7 +12,7 @@ class AnonymousClass1
 {
     public function anotherMethod($integer)
     {
-        return $integer;
+        return $integer < 3 ? -1 : ($integer == 3 ? 0 : 1);
     }
 }
 class Test

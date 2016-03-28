@@ -15,8 +15,8 @@ class Test
         $class->method();
 
         $anotherClass = new class() {
-            public function anotherMethod(int $integer) {
-                return $integer;
+            public function anotherMethod(int $integer) : int {
+                return $integer <=> 3;
             }
         };
     }
