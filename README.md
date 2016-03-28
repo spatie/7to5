@@ -18,7 +18,6 @@ $ php7to5 convert {$directoryWithPHP7Code} {$destinationWithPHP5Code}
 
 Here's an example of what it can do. It'll convert this code with PHP 7 features:
 ```php
-
 class Test
 {
     public function test()
