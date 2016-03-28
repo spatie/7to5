@@ -11,26 +11,28 @@ use PhpParser\NodeVisitorAbstract;
 
 class DefineArrayReplacer extends NodeVisitorAbstract
 {
+    /**
+     * {@inheritdoc}
+     */
     public function leaveNode(Node $node)
     {
         if (!$node instanceof Node\Expr\FuncCall) {
-            return null;
+            return;
         }
 
         if ($node->name != 'define') {
-            return null;
+            return;
         }
 
         $nameNode = $node->args[0]->value;
         $valueNode = $node->args[1]->value;
 
-        if (! $valueNode instanceof Node\Expr\Array_) {
-            return null;
+        if (!$valueNode instanceof Node\Expr\Array_) {
+            return;
         }
 
         $constNode = new Node\Const_($nameNode->value, $valueNode);
 
         return new Node\Stmt\Const_([$constNode]);
     }
-
 }

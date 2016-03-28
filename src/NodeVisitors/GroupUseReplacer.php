@@ -7,6 +7,9 @@ use PhpParser\NodeVisitorAbstract;
 
 class GroupUseReplacer extends NodeVisitorAbstract
 {
+    /**
+     * {@inheritdoc}
+     */
     public function leaveNode(Node $node)
     {
         if (!$node instanceof Node\Stmt\GroupUse) {
