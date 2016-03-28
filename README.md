@@ -87,7 +87,7 @@ $ composer require spatie/7to5
 
 ## The conversion process
 
-Thhis package converts PHP 7 code to equivalent PHP 5 code by:
+This package converts PHP 7 code to equivalent PHP 5 code by:
 
 - removing scalar type hints
 - removing return type hints
@@ -98,7 +98,7 @@ Thhis package converts PHP 7 code to equivalent PHP 5 code by:
 - replacing defined arrays by equivalent PHP 5 code
 - converting anonymous classes to regular classes
 
-Because there are a lot of things that cannot be detected and/or converted properly we do not guarantee that the converted code will work. We higly recommend running your automated tests against the converted code to determine if it works.
+Because there are a lot of things that cannot be detected and/or converted properly we do not guarantee that the converted code will work. We highly recommend running your automated tests against the converted code to determine if it works.
 
 ## Using the console command
 
