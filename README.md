@@ -31,8 +31,8 @@ class Test
         $class->method();
 
         $anotherClass = new class() {
-            public function anotherMethod(int $integer) {
-                return $integer;
+            public function anotherMethod(int $integer) : bool {
+                return $integer > 0;
             }
         };
     }
@@ -57,7 +57,7 @@ class AnonymousClass1
 {
     public function anotherMethod($integer)
     {
-        return $integer;
+        return $integer > 0;
     }
 }
 class Test
