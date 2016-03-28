@@ -16,6 +16,62 @@ You can convert an entire directory with PHP 7 code with a the console command:
 $ php7to5 convert {$directoryWithPHP7Code} {$destinationWithPHP5Code}
 ```
 
+Here's an example of what it can do. It'll convert this code with PHP 7 features:
+```php
+
+class Test
+{
+    public function test()
+    {
+        $class = new class() {
+            public function method(string $parameter = '') : string {
+                return $parameter ?? 'no parameter set';
+            }
+        };
+        
+        $class->method();
+
+        $anotherClass = new class() {
+            public function anotherMethod(int $integer) {
+                return $integer;
+            }
+        };
+    }
+            
+}
+
+```
+
+to this equivalent PHP 5 code:
+
+```php 
+<?php
+
+class AnonymousClass0
+{
+    public function method($parameter = '')
+    {
+        return isset($parameter) ? $parameter : 'no parameter set';
+    }
+}
+class AnonymousClass1
+{
+    public function anotherMethod($integer)
+    {
+        return $integer;
+    }
+}
+class Test
+{
+    public function test()
+    {
+        $class = new AnonymousClass0();
+        $class->method();
+        $anotherClass = new AnonymousClass1();
+    }
+}
+```
+
 Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
 
 ## Installation
