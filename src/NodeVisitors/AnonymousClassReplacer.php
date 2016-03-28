@@ -84,9 +84,8 @@ class AnonymousClassReplacer extends NodeVisitorAbstract
             if (!$statement instanceof Declare_ &&
                 !$statement instanceof Use_ &&
                 !$statement instanceof Namespace_) {
-                $hookIndex = $index;
 
-                break;
+                $hookIndex = $index;
             }
         }
 
