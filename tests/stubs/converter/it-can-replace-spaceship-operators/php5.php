@@ -26,30 +26,31 @@ echo 'a' < 'aa' ? -1 : ('a' == 'aa' ? 0 : 1);
 echo 'zz' < 'aa' ? -1 : ('zz' == 'aa' ? 0 : 1);
 // 1
 // Arrays
-echo array() < array() ? -1 : (array() == array() ? 0 : 1);
+echo [] < [] ? -1 : ([] == [] ? 0 : 1);
 // 0
-echo array(1, 2, 3) < array(1, 2, 3) ? -1 : (array(1, 2, 3) == array(1, 2, 3) ? 0 : 1);
+echo [1, 2, 3] < [1, 2, 3] ? -1 : ([1, 2, 3] == [1, 2, 3] ? 0 : 1);
 // 0
-echo array(1, 2, 3) < array() ? -1 : (array(1, 2, 3) == array() ? 0 : 1);
+echo [1, 2, 3] < [] ? -1 : ([1, 2, 3] == [] ? 0 : 1);
 // 1
-echo array(1, 2, 3) < array(1, 2, 1) ? -1 : (array(1, 2, 3) == array(1, 2, 1) ? 0 : 1);
+echo [1, 2, 3] < [1, 2, 1] ? -1 : ([1, 2, 3] == [1, 2, 1] ? 0 : 1);
 // 1
-echo array(1, 2, 3) < array(1, 2, 4) ? -1 : (array(1, 2, 3) == array(1, 2, 4) ? 0 : 1);
+echo [1, 2, 3] < [1, 2, 4] ? -1 : ([1, 2, 3] == [1, 2, 4] ? 0 : 1);
 // -1
 // Objects
-$a = (object) array('a' => 'b');
-$b = (object) array('a' => 'b');
+$a = (object) ['a' => 'b'];
+$b = (object) ['a' => 'b'];
 echo $a < $b ? -1 : ($a == $b ? 0 : 1);
 // 0
-$a = (object) array('a' => 'b');
-$b = (object) array('a' => 'c');
-echo $a < $b ? -1 : ($a == $b ? 0 : 1);
+$c = (object) ['a' => 'b'];
+$d = (object) ['a' => 'c'];
+echo $c < $d ? -1 : ($c == $d ? 0 : 1);
 // -1
-$a = (object) array('a' => 'c');
-$b = (object) array('a' => 'b');
-echo $a < $b ? -1 : ($a == $b ? 0 : 1);
+$e = (object) ['a' => 'c'];
+$f = (object) ['a' => 'b'];
+echo $e < $f ? -1 : ($e == $f ? 0 : 1);
 // 1
 // only values are compared
-$a = (object) array('a' => 'b');
-$b = (object) array('b' => 'b');
-echo $a < $b ? -1 : ($a == $b ? 0 : 1);
+$g = (object) ['a' => 'b'];
+$h = (object) ['b' => 'b'];
+echo $g < $h ? -1 : ($g == $h ? 0 : 1);
+// 1

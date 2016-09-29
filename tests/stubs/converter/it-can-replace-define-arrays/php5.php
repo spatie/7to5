@@ -1,3 +1,3 @@
 <?php
 
-const ANIMALS = array('dog', 'cat', 'bird');
+const ANIMALS = ['dog', 'cat', 'bird'];

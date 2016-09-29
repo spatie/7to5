@@ -2,19 +2,6 @@
 
 All Notable changes to `7to5` will be documented in this file
 
-## NEXT - YYYY-MM-DD
+## 1.0.1 - 2016-09-29
 
-### Added
-- Nothing
-
-### Deprecated
-- Nothing
-
-### Fixed
-- Nothing
-
-### Removed
-- Nothing
-
-### Security
-- Nothing
+- fix missing illuminate/support dependency

@@ -30,16 +30,16 @@ $a = (object) ['a' => 'b'];
 $b = (object) ['a' => 'b'];
 echo $a <=> $b; // 0
 
-$a = (object) ['a' => 'b'];
-$b = (object) ['a' => 'c'];
-echo $a <=> $b; // -1
+$c = (object) ['a' => 'b'];
+$d = (object) ['a' => 'c'];
+echo $c <=> $d; // -1
 
-$a = (object) ['a' => 'c'];
-$b = (object) ['a' => 'b'];
-echo $a <=> $b; // 1
+$e = (object) ['a' => 'c'];
+$f = (object) ['a' => 'b'];
+echo $e <=> $f; // 1
 
 // only values are compared
-$a = (object) ['a' => 'b'];
-$b = (object) ['b' => 'b'];
-echo $a <=> $b; // 1
+$g = (object) ['a' => 'b'];
+$h = (object) ['b' => 'b'];
+echo $g <=> $h; // 1
 
