@@ -18,6 +18,26 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_can_remove_scalar_type_hints_71()
+    {
+        $converter = new Converter($this->getStub('it-can-remove-scalar-type-hints-71/php71.php'));
+
+        $php5code = $converter->getPhp5Code();
+
+        $this->assertSame($this->getStubContent('it-can-remove-scalar-type-hints-71/php5.php'), $php5code);
+    }
+
+    /** @test */
+    public function it_can_remove_return_types_71()
+    {
+        $converter = new Converter($this->getStub('it-can-remove-return-types/php71.php'));
+
+        $php5code = $converter->getPhp5Code();
+
+        $this->assertSame($this->getStubContent('it-can-remove-return-types/php5.php'), $php5code);
+    }
+
+    /** @test */
     public function it_can_remove_return_types()
     {
         $converter = new Converter($this->getStub('it-can-remove-return-types/php7.php'));
