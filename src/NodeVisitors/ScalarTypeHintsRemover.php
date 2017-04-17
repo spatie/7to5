@@ -17,6 +17,15 @@ class ScalarTypeHintsRemover extends NodeVisitorAbstract
             return;
         }
 
+        if ($node->type instanceof Node\NullableType) {
+            $node->type = $node->type->type;
+            if (!$node->default) {
+                $node->default = new Node\Expr\ConstFetch(
+                    new Node\Name('null')
+                );
+            }
+        }
+
         if ($this->isScalar($node->type)) {
             $node->type = null;
         }
