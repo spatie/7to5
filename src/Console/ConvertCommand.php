@@ -28,6 +28,19 @@ class ConvertCommand extends Command
                 'The file or path where the PHP 5 code should be saved'
             )
             ->addOption(
+                'extension',
+                'e',
+                InputOption::VALUE_IS_ARRAY | InputOption::VALUE_OPTIONAL,
+                'PHP extensions',
+                ['php']
+            )
+            ->addOption(
+                'exclude',
+                null,
+                InputOption::VALUE_IS_ARRAY | InputOption::VALUE_OPTIONAL,
+                'Exclude path'
+            )
+            ->addOption(
                 'copy-all',
                 null,
                 InputOption::VALUE_NONE,
@@ -85,7 +98,9 @@ class ConvertCommand extends Command
     {
         $source = $input->getArgument('source');
         $destination = $input->getArgument('destination');
-        $converter = new DirectoryConverter($source);
+        $extensions = $input->getOption('extension');
+        $excludes = $input->getOption('exclude');
+        $converter = new DirectoryConverter($source, $extensions, $excludes);
 
         $this->isDestinationASourceDirectory($source, $destination);
         $this->isDestinationDifferentThanSource($source, $destination);

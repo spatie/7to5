@@ -47,6 +47,7 @@ class ConsoleCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertTempFileNotExists([
             $destinationDirectory.'/file3.txt',
             $destinationDirectory.'/directory1/file3.txt',
+            $destinationDirectory.'/directory1/file4.phtml',
         ]);
 
         $this->assertTempFileExists([
@@ -54,7 +55,48 @@ class ConsoleCommandTest extends \PHPUnit_Framework_TestCase
             $destinationDirectory.'/file2.php',
             $destinationDirectory.'/directory1/file1.php',
             $destinationDirectory.'/directory1/file2.php',
+        ]);
+    }
 
+    /** @test */
+    public function it_can_convert_all_php_files_from_a_given_directory_with_additional_extension()
+    {
+        $destinationDirectory = $this->destinationDirectory;
+        $command = $this->getCommand($this->sourceDirectory, $destinationDirectory, '--overwrite --extension=php --extension=phtml');
+        $this->runCommand($command);
+
+        $this->assertTempFileNotExists([
+            $destinationDirectory.'/file3.txt',
+            $destinationDirectory.'/directory1/file3.txt',
+        ]);
+
+        $this->assertTempFileExists([
+            $destinationDirectory.'/file1.php',
+            $destinationDirectory.'/file2.php',
+            $destinationDirectory.'/directory1/file1.php',
+            $destinationDirectory.'/directory1/file2.php',
+            $destinationDirectory.'/directory1/file4.phtml',
+        ]);
+    }
+
+    /** @test */
+    public function it_can_convert_all_php_files_from_a_given_directory_with_additional_exclude()
+    {
+        $destinationDirectory = $this->destinationDirectory;
+        $command = $this->getCommand($this->sourceDirectory, $destinationDirectory, '--overwrite --exclude=directory1');
+        $this->runCommand($command);
+
+        $this->assertTempFileNotExists([
+            $destinationDirectory.'/file3.txt',
+            $destinationDirectory.'/directory1/file3.txt',
+            $destinationDirectory.'/directory1/file1.php',
+            $destinationDirectory.'/directory1/file2.php',
+            $destinationDirectory.'/directory1/file4.phtml',
+        ]);
+
+        $this->assertTempFileExists([
+            $destinationDirectory.'/file1.php',
+            $destinationDirectory.'/file2.php',
         ]);
     }
 
@@ -72,7 +114,7 @@ class ConsoleCommandTest extends \PHPUnit_Framework_TestCase
             $destinationDirectory.'/directory1/file1.php',
             $destinationDirectory.'/directory1/file2.php',
             $destinationDirectory.'/directory1/file3.txt',
-
+            $destinationDirectory.'/directory1/file4.phtml',
         ]);
     }
 
