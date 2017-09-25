@@ -129,6 +129,18 @@ By default the command will only copy over `php`-files. Want to copy over all fi
 $ php7to5 convert {$directoryWithPHP7Code} {$destinationWithPHP5Code} --copy-all
 ```
 
+The command uses an extension for the php - *.php, you can make your set of extensions.
+
+```bash
+$ php7to5 convert {$directoryWithPHP7Code} {$destinationWithPHP5Code} --extension=php --extenstion=phtml
+```
+
+If necessary, you can exclude directories / files.
+
+```bash
+$ php7to5 convert {$directoryWithPHP7Code} {$destinationWithPHP5Code} --exсlude=cache --extenstion=vendor/package
+```
+
 ## Programmatically convert files
 
 You can convert a single file by running this code:

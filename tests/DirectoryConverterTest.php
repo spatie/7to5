@@ -17,7 +17,7 @@ class DirectoryConverterTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_can_copy_and_convert_an_entire_directory()
     {
-        $directoryConverter = new DirectoryConverter($this->getSourceDirectory());
+        $directoryConverter = new DirectoryConverter($this->getSourceDirectory(), ['php']);
 
         $directoryConverter->savePhp5FilesTo($this->getTempDirectory());
 
@@ -36,7 +36,7 @@ class DirectoryConverterTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_can_copy_and_convert_an_entire_directory_filtering_on_php_files()
     {
-        $directoryConverter = new DirectoryConverter($this->getSourceDirectory());
+        $directoryConverter = new DirectoryConverter($this->getSourceDirectory(), ['php']);
 
         $directoryConverter
             ->doNotCopyNonPhpFiles()
@@ -52,6 +52,82 @@ class DirectoryConverterTest extends \PHPUnit_Framework_TestCase
         $this->assertTempFileNotExists([
             'sourceDirectory/file3.txt',
             'sourceDirectory/directory1/file3.txt',
+            'sourceDirectory/directory1/file4.phtml',
+        ]);
+
+        $this->assertAllPhpFilesWereConverted($this->getTempDirectory());
+    }
+
+    /** @test */
+    public function it_can_copy_and_convert_an_entire_directory_filtering_on_custom_php_files()
+    {
+        $directoryConverter = new DirectoryConverter($this->getSourceDirectory(), ['php', 'phtml']);
+
+        $directoryConverter
+            ->doNotCopyNonPhpFiles()
+            ->savePhp5FilesTo($this->getTempDirectory());
+
+        $this->assertTempFileExists([
+            'sourceDirectory/file1.php',
+            'sourceDirectory/file2.php',
+            'sourceDirectory/directory1/file1.php',
+            'sourceDirectory/directory1/file2.php',
+            'sourceDirectory/directory1/file4.phtml',
+        ]);
+
+        $this->assertTempFileNotExists([
+            'sourceDirectory/file3.txt',
+            'sourceDirectory/directory1/file3.txt',
+        ]);
+
+        $this->assertAllPhpFilesWereConverted($this->getTempDirectory());
+    }
+
+    /** @test */
+    public function it_can_copy_and_convert_an_entire_directory_with_exclude_directory()
+    {
+        $directoryConverter = new DirectoryConverter($this->getSourceDirectory(), ['php'], ['sourceDirectory/directory1']);
+
+        $directoryConverter
+            ->doNotCopyNonPhpFiles()
+            ->savePhp5FilesTo($this->getTempDirectory());
+
+        $this->assertTempFileExists([
+            'sourceDirectory/file1.php',
+            'sourceDirectory/file2.php',
+        ]);
+
+        $this->assertTempFileNotExists([
+            'sourceDirectory/file3.txt',
+            'sourceDirectory/directory1/file1.php',
+            'sourceDirectory/directory1/file2.php',
+            'sourceDirectory/directory1/file3.txt',
+            'sourceDirectory/directory1/file4.phtml',
+        ]);
+
+        $this->assertAllPhpFilesWereConverted($this->getTempDirectory());
+    }
+
+    /** @test */
+    public function it_can_copy_and_convert_an_entire_directory_with_exclude_file()
+    {
+        $directoryConverter = new DirectoryConverter($this->getSourceDirectory(), ['php'], ['sourceDirectory/directory1/file1.php']);
+
+        $directoryConverter
+            ->doNotCopyNonPhpFiles()
+            ->savePhp5FilesTo($this->getTempDirectory());
+
+        $this->assertTempFileExists([
+            'sourceDirectory/file1.php',
+            'sourceDirectory/file2.php',
+            'sourceDirectory/directory1/file2.php',
+        ]);
+
+        $this->assertTempFileNotExists([
+            'sourceDirectory/file3.txt',
+            'sourceDirectory/directory1/file1.php',
+            'sourceDirectory/directory1/file3.txt',
+            'sourceDirectory/directory1/file4.phtml',
         ]);
 
         $this->assertAllPhpFilesWereConverted($this->getTempDirectory());
