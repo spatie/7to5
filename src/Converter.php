@@ -38,7 +38,7 @@ class Converter
      */
     public function getPhp5Code()
     {
-        ini_set('xdebug.max_nesting_level', 3000);
+        ini_set('xdebug.max_nesting_level', 9000);
 
         $parser = (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
 

@@ -77,6 +77,22 @@ class ConsoleCommandTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_can_convert_file_with_large_nesting()
+    {
+        $fs = new Filesystem();
+        $file = 'maxNestingLevel.php';
+        $destinationFile = $this->destinationDirectory.'/'.$file;
+        $sourceFile = $this->getConsoleCommand().'/'.$file;
+        $fs->makeDirectory(dirname($destinationFile));
+        $command = $this->getCommand($sourceFile, $destinationFile, '--overwrite');
+        $this->runCommand($command);
+
+        $this->assertTempFileExists([
+            $destinationFile,
+        ]);
+    }
+
+    /** @test */
     public function it_throws_an_exception_if_a_file_exist_and_overwriting_is_not_allowed()
     {
         $command = $this->getCommand($this->inputFile, $this->outputFile, null);
