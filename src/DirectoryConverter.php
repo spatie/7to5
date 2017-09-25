@@ -102,9 +102,10 @@ class DirectoryConverter
                 $finder->name('*.'.$extension);
             }
         }
+
         if ($this->excludes) {
             foreach ($this->excludes as $exclude) {
-                $finder->notPath($exclude);
+                $finder->notPath('/^'.preg_quote($exclude, '/').'/');
             }
         }
 
