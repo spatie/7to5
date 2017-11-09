@@ -2,10 +2,11 @@
 
 namespace Spatie\Php7to5\Test;
 
+use PHPUnit\Framework\TestCase;
 use Illuminate\Filesystem\Filesystem;
 use Spatie\Php7to5\DirectoryConverter;
 
-class DirectoryConverterTest extends \PHPUnit_Framework_TestCase
+class DirectoryConverterTest extends TestCase
 {
     public function setUp()
     {
