@@ -2,13 +2,14 @@
 
 namespace Spatie\Php7to5\Test;
 
-use Symfony\Component\Process\Process;
+use PHPUnit\Framework\TestCase;
 use Illuminate\Filesystem\Filesystem;
+use Symfony\Component\Process\Process;
 
 /**
  * Class ConsoleCommandTest.
  */
-class ConsoleCommandTest extends \PHPUnit_Framework_TestCase
+class ConsoleCommandTest extends TestCase
 {
     protected $inputFile;
     protected $outputFile;

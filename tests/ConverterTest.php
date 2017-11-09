@@ -3,9 +3,10 @@
 namespace Spatie\Php7to5\Test;
 
 use Spatie\Php7to5\Converter;
+use PHPUnit\Framework\TestCase;
 use Spatie\Php7to5\Exceptions\InvalidParameter;
 
-class ConverterTest extends \PHPUnit_Framework_TestCase
+class ConverterTest extends TestCase
 {
     /** @test */
     public function it_can_remove_scalar_type_hints()
