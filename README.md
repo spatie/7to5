@@ -1,4 +1,4 @@
-# Convert PHP 7 code to PHP 5 code
+# Convert PHP 7.0 code to PHP 5 code
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/7to5.svg?style=flat-square)](https://packagist.org/packages/spatie/7to5)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
@@ -6,10 +6,10 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/7to5.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/7to5)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/7to5.svg?style=flat-square)](https://packagist.org/packages/spatie/7to5)
 
-This package can convert PHP 7 code to PHP 5. This can be handy when you are running PHP 7 in development, but
+This package can convert PHP 7.0 code to PHP 5. This can be handy when you are running PHP 7 in development, but
 PHP 5 in production.
 
-You can convert an entire directory with PHP 7 code with a the console command:
+You can convert an entire directory with PHP 7.0 code with a the console command:
 
 ```bash
 $ php7to5 convert {$directoryWithPHP7Code} {$destinationWithPHP5Code}
