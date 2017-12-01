@@ -102,7 +102,10 @@ class ConvertCommand extends Command
         $excludes = $input->getOption('exclude');
         $converter = new DirectoryConverter($source, $extensions, $excludes);
 
-        $this->isDestinationASourceDirectory($source, $destination);
+        if (!$input->getOption('overwrite')) {
+          $this->isDestinationASourceDirectory($source, $destination);
+        }
+
         $this->isDestinationDifferentThanSource($source, $destination);
 
         if (!$input->getOption('copy-all')) {
