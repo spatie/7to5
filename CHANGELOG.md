@@ -2,6 +2,10 @@
 
 All Notable changes to `7to5` will be documented in this file
 
+## 1.2.1 - 2017-12-01
+
+- Fix option `--overwrite`
+
 ## 1.2.0 - 2017-09-25
 
 - fix null coaleascing operation conversion
