@@ -2,6 +2,10 @@
 
 All Notable changes to `7to5` will be documented in this file
 
+## 1.2.2 - 2018-01-20
+
+- Fix deps
+
 ## 1.2.1 - 2017-12-01
 
 - Fix option `--overwrite`
