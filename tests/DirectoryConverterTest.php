@@ -134,6 +134,43 @@ class DirectoryConverterTest extends TestCase
         $this->assertAllPhpFilesWereConverted($this->getTempDirectory());
     }
 
+    /** @test */
+    public function it_can_clean_destination_directory_before_conversion()
+    {
+        # Convert all php files including sub-directories
+        $directoryConverter1 = new DirectoryConverter(
+            $this->getSourceDirectory(),
+            ['php']
+        );
+        $directoryConverter1->savePhp5FilesTo($this->getTempDirectory());
+
+        $directoryConverter2 = new DirectoryConverter(
+            $this->getSourceDirectory(),
+            ['php'],
+            ['sourceDirectory/directory1']
+        );
+        $directoryConverter2
+            ->cleanDestinationDirectory()
+            ->savePhp5FilesTo($this->getTempDirectory());
+
+        $this->assertTempFileExists([
+            'sourceDirectory/file1.php',
+            'sourceDirectory/file2.php',
+            'sourceDirectory/file3.txt'
+        ]);
+
+        $this->assertTempFileNotExists([
+            'sourceDirectory/directory1/file1.php',
+            'sourceDirectory/directory1/file2.php',
+            'sourceDirectory/directory1/file3.txt',
+            'sourceDirectory/directory1/file4.phtml'
+        ]);
+
+        $this->assertAllPhpFilesWereConverted($this->getTempDirectory());
+
+        $this->addGitignoreTo($this->getTempDirectory());
+    }
+
     public function initializeTempDirectory()
     {
         (new Filesystem())->deleteDirectory($this->getTempDirectory());
