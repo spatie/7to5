@@ -9,7 +9,11 @@ use Symfony\Component\Finder\Finder;
 class DirectoryConverter
 {
     /** @var string */
+    protected $sourceDirectory;
+    /** @var string */
     protected $copyNonPhpFiles = true;
+    /** @var bool */
+    protected $cleanDestinationDirectory = false;
     /** @var string[] */
     protected $extensions;
     /** @var null|string[] */
@@ -64,6 +68,16 @@ class DirectoryConverter
     /**
      * @return $this
      */
+    public function cleanDestinationDirectory()
+    {
+        $this->cleanDestinationDirectory = true;
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
     public function doNotCopyNonPhpFiles()
     {
         $this->copyNonPhpFiles = false;
@@ -80,6 +94,10 @@ class DirectoryConverter
     {
         if ($destinationDirectory === '') {
             throw InvalidParameter::directoryIsRequired();
+        }
+
+        if($this->cleanDestinationDirectory){
+            $this->removeDirectory($destinationDirectory);
         }
 
         $this->copyDirectory($this->sourceDirectory, $destinationDirectory);
@@ -129,6 +147,20 @@ class DirectoryConverter
                 }
             }
         }
+    }
+
+    /**
+     * @param string $path
+     */
+    protected function removeDirectory($path)
+    {
+        if (PHP_OS === 'Windows') {
+            $command = 'rd /s /q %s';
+        } else {
+            $command = 'rm -rf %s';
+        }
+
+        exec(sprintf($command, escapeshellarg($path)));
     }
 
     /**
