@@ -2,6 +2,11 @@
 
 All Notable changes to `7to5` will be documented in this file
 
+## 1.3.0 - 2018-04-13
+
+- add option to clean destination directory
+- add ability to remove class constant visibility
+
 ## 1.2.2 - 2018-01-20
 
 - Fix deps
