@@ -116,6 +116,16 @@ class ConverterTest extends TestCase
         new Converter('thisFileDoesNotExist.php');
     }
 
+    /** @test */
+    public function it_can_remove_class_constant_visibility_modifiers()
+    {
+        $converter = new Converter($this->getStub('it-can-remove-class-constant-visibility-modifiers/php7.php'));
+
+        $php5code = $converter->getPhp5Code();
+
+        $this->assertSame($this->getStubContent('it-can-remove-class-constant-visibility-modifiers/php5.php'), $php5code);
+    }
+
     /**
      * @param string $name
      *
