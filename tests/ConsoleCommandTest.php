@@ -237,7 +237,7 @@ class ConsoleCommandTest extends TestCase
      */
     protected function getCommand($inputFile, $outputFile, $options = null)
     {
-        return "./php7to5 convert {$inputFile} {$outputFile} {$options}";
+        return "./php7to5 convert {$inputFile} {$outputFile} {$options} -vv";
     }
 
     /**
@@ -247,7 +247,7 @@ class ConsoleCommandTest extends TestCase
      */
     protected function runCommand($command)
     {
-        $process = new Process($command);
+        $process = new Process($command, dirname(__DIR__));
         $process->run();
 
         return $process;
