@@ -12,7 +12,7 @@ PHP 5 in production.
 You can convert an entire directory with PHP 7.0 code with a the console command:
 
 ```bash
-$ php7to5 convert {$directoryWithPHP7Code} {$destinationWithPHP5Code}
+php7to5 convert {$directoryWithPHP7Code} {$destinationWithPHP5Code}
 ```
 
 Here's an example of what it can do. It'll convert this code with PHP 7 features:
