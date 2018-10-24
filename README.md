@@ -1,3 +1,7 @@
+**This package has been abandoned**
+
+We are not maintaining this package any more. Feel free to fork our code and maintain your own copy.
+
 # Convert PHP 7.0 code to PHP 5 code
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/7to5.svg?style=flat-square)](https://packagist.org/packages/spatie/7to5)
